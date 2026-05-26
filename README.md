@@ -1,6 +1,6 @@
-# Brunnenkarte Stuttgart
+# Brunnenkarte
 
-Die App **Brunnenkarte Stuttgart** ist eine ODAS-kompatible Single Page Application fuer den Open Data App Store. Sie visualisiert offene Brunnenstandorte der Landeshauptstadt Stuttgart aus WFS/GeoJSON-Daten und bereitet sie als kommunale Karten- und Analyseansicht auf.
+Die App **Brunnenkarte** ist eine ODAS-kompatible Single Page Application fuer den Open Data App Store. Sie visualisiert offene Brunnenstandorte einer Stadt aus WFS/GeoJSON-Daten und bereitet sie als kommunale Karten- und Analyseansicht auf.
 
 Die App entspricht dem ODAS-V1-Modell auf Basis des `oda-generic` Templates: Die Runtime-Dateien bleiben im Template, die app-spezifische Logik liegt in `app/app.js`, das app-spezifische Styling in `app/app.css`.
 
@@ -14,7 +14,7 @@ Die App entspricht dem ODAS-V1-Modell auf Basis des `oda-generic` Templates: Die
 - CSV-Export der aktuell gefilterten Datensaetze
 - Robuste Fehleranzeige, wenn einzelne Quellen nicht geladen werden koennen
 
-## Datenquellen
+## Datenquellen-Beispiel
 
 Die lokale Beispielkonfiguration nutzt den Datensatz **Brunnen** von OpenData@Stuttgart:
 
