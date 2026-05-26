@@ -1,0 +1,50 @@
+{
+  "titel": "Brunnenkarte Stuttgart",
+  "seitentitel": "Brunnenkarte Stuttgart",
+  "icon": "logo_ondics.png",
+  "beschreibung": [
+    "Die Brunnenkarte Stuttgart zeigt offene WFS-Daten der Landeshauptstadt Stuttgart zu Brunnen im Betrieb.",
+    "Die App stellt Kennzahlen, Filter, Karte, Diagramm und Tabelle fuer kommunale Informationsangebote bereit.",
+    "## Datenquelle",
+    "https://opendata.stuttgart.de/dataset/brunnen"
+  ],
+  "kontakt": [
+    "Hinweise zur App oder zu den dargestellten Daten koennen an den jeweiligen App-Anbieter gerichtet werden."
+  ],
+  "impressum": [
+    "Ondics GmbH<br>",
+    "Blumenstrasse 19<br>",
+    "70182 Stuttgart<br>",
+    "<a href='https://www.ondics.de/' target='_blank'>https://www.ondics.de/</a>"
+  ],
+  "datenschutz": [
+    "Diese App verarbeitet im Browser offene Standortdaten und setzt keine eigenen Tracking-Mechanismen ein."
+  ],
+  "fusszeile": [
+    "(C) Copyright 2026 | ",
+    "Daten: Landeshauptstadt Stuttgart | ",
+    "App-Entwickler: Ondics GmbH | ",
+    "Provided by ODAS"
+  ],
+  "brandingCSS": "",
+  "brandingCSSFile": "",
+  "urlDaten": "https://opendata.stuttgart.de/dataset/brunnen",
+  "dataSources": [
+    {
+      "label": "Brunnen in Betrieb",
+      "type": "brunnen",
+      "url": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326"
+    },
+    {
+      "label": "Trinkwasserbrunnen im Betrieb",
+      "type": "trinkwasser",
+      "url": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326"
+    },
+    {
+      "label": "Mineralwasserbrunnen im Betrieb",
+      "type": "mineralwasser",
+      "url": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326"
+    }
+  ],
+  "sprache": "de"
+}

@@ -1,0 +1,73 @@
+{
+  "profile": "tabular-data-resource",
+  "name": "brunnenkarte-stuttgart",
+  "title": "Normalisiertes Datenmodell der Brunnenkarte Stuttgart",
+  "description": "Interne Felder fuer Brunnen, Trinkwasserbrunnen und Mineralwasserbrunnen in der ODAS-App.",
+  "schema": {
+    "fields": [
+      {
+        "name": "id",
+        "title": "ID",
+        "type": "string",
+        "description": "Eindeutige Kennung aus dem Quellsystem oder der App-Normalisierung."
+      },
+      {
+        "name": "name",
+        "title": "Name",
+        "type": "string",
+        "description": "Name oder Bezeichnung des Brunnens."
+      },
+      {
+        "name": "type",
+        "title": "Brunnenart",
+        "type": "string",
+        "constraints": {
+          "enum": ["brunnen", "trinkwasser", "mineralwasser"]
+        }
+      },
+      {
+        "name": "district",
+        "title": "Bezirk oder Stadtteil",
+        "type": "string",
+        "description": "Raeumliche Einordnung, falls im Quelldatensatz vorhanden."
+      },
+      {
+        "name": "address",
+        "title": "Lage",
+        "type": "string",
+        "description": "Adresse, Lagebeschreibung oder Standortbezeichnung."
+      },
+      {
+        "name": "lat",
+        "title": "Latitude",
+        "type": "number",
+        "description": "Breitengrad in WGS84."
+      },
+      {
+        "name": "lng",
+        "title": "Longitude",
+        "type": "number",
+        "description": "Laengengrad in WGS84."
+      },
+      {
+        "name": "status",
+        "title": "Status",
+        "type": "string",
+        "description": "Betriebsstatus aus der Datenquelle."
+      },
+      {
+        "name": "operator",
+        "title": "Unterhaltung",
+        "type": "string",
+        "description": "Zustaendige Stelle oder Betreiberangabe aus der Datenquelle."
+      },
+      {
+        "name": "sourceLabel",
+        "title": "Quelle",
+        "type": "string",
+        "description": "Label der geladenen Datenquelle."
+      }
+    ],
+    "primaryKey": "id"
+  }
+}

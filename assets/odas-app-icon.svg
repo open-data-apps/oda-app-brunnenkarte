@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-labelledby="title desc">
+  <title id="title">Brunnenkarte Stuttgart</title>
+  <desc id="desc">ODAS App Icon mit stilisiertem Brunnen und Standortmarke.</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7eb8f7"/>
+      <stop offset="100%" stop-color="#3d3fa5"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="11" flood-color="#000000" flood-opacity="0.30"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="108" ry="108" fill="url(#bgGrad)"/>
+  <ellipse cx="150" cy="128" rx="170" ry="145" fill="#ffffff" fill-opacity="0.12"/>
+  <g filter="url(#shadow)" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M256 101c-55 0-100 45-100 100 0 77 100 177 100 177s100-100 100-177c0-55-45-100-100-100z" stroke-width="30" fill="#ffffff" fill-opacity="0.18"/>
+    <circle cx="256" cy="199" r="39" stroke-width="28" fill="#ffffff" fill-opacity="0.18"/>
+    <path d="M170 371h172" stroke-width="30"/>
+    <path d="M201 411h110" stroke-width="26"/>
+    <path d="M216 282c0 31 20 56 40 56s40-25 40-56" stroke-width="24"/>
+    <path d="M204 255c29-27 75-27 104 0" stroke-width="24"/>
+    <path d="M256 255v76" stroke-width="22"/>
+  </g>
+</svg>
