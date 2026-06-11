@@ -95,7 +95,7 @@ async function initializeApp(state) {
 }
 
 function renderLayout(rootId, configdata = {}) {
-  const title = escapeHtml(configdata.titel || "Brunnenkarte Stuttgart");
+  const title = escapeHtml(configdata.titel || "Brunnenkarte");
   const dataUrl = escapeAttribute(
     configdata.urlDaten || "https://opendata.stuttgart.de/dataset/brunnen",
   );
@@ -1015,7 +1015,7 @@ function exportCsv(records) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "brunnenkarte-stuttgart.csv";
+  link.download = "brunnenkarte.csv";
   link.click();
   URL.revokeObjectURL(url);
 }

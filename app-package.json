@@ -1,15 +1,15 @@
 {
   "app-entwickler-id": "12343",
   "app-entwickler-name": "ondics-gmbh",
-  "name-in-url": "brunnenkarte-stuttgart",
-  "name": "Brunnenkarte Stuttgart",
+  "name-in-url": "brunnenkarte",
+  "name": "Brunnenkarte",
   "version": "1.0.0",
   "odas-app-icon": "assets/odas-app-icon.svg",
   "app-icon": "assets/odas-app-icon.svg",
   "kurzbeschreibung": "Interaktive Karten- und Analyse-App fuer Brunnenstandorte in Stuttgart.",
   "beschreibung": [
     "_multiline_",
-    "Die Brunnenkarte Stuttgart visualisiert Brunnen, Trinkwasserbrunnen und Mineralwasserbrunnen aus offenen WFS-Daten der Landeshauptstadt Stuttgart.",
+    "Die Brunnenkarte visualisiert Brunnen, Trinkwasserbrunnen und Mineralwasserbrunnen aus offenen WFS-Daten der Landeshauptstadt Stuttgart.",
     "Die App bietet Kennzahlen, Filter, Kartenansicht, Detail-Popups, schlanke Typ-Verteilung und tabellarische Auswertung fuer kommunale Informationsangebote.",
     ""
   ],
@@ -32,7 +32,7 @@
     "seitentitel": {
       "label": "Seitentitel",
       "hilfe": "Der Seitentitel wird im Browser-Tab der App angezeigt.",
-      "default": "Brunnenkarte Stuttgart",
+      "default": "Brunnenkarte",
       "format": {
         "typ": "string",
         "laenge": 80
@@ -42,7 +42,7 @@
     "titel": {
       "label": "Titel",
       "hilfe": "Der Titel wird in der Titelzeile der App angezeigt.",
-      "default": "Brunnenkarte Stuttgart",
+      "default": "Brunnenkarte",
       "format": {
         "typ": "string",
         "laenge": 80
@@ -68,7 +68,7 @@
       },
       "default": [
         "_multiline_",
-        "Die Brunnenkarte Stuttgart zeigt offene WFS-Daten der Landeshauptstadt Stuttgart zu Brunnen im Betrieb.",
+        "Die Brunnenkarte zeigt offene WFS-Daten der Landeshauptstadt Stuttgart zu Brunnen im Betrieb.",
         "Die Daten werden aus OpenData@Stuttgart bzw. dem Stuttgarter GeoServer geladen und in Karte, Kennzahlen, Diagramm und Tabelle dargestellt.",
         "## Datenquelle",
         "Datensatz Brunnen: https://opendata.stuttgart.de/dataset/brunnen",

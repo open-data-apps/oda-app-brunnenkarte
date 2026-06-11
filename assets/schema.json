@@ -1,7 +1,7 @@
 {
   "profile": "tabular-data-resource",
-  "name": "brunnenkarte-stuttgart",
-  "title": "Normalisiertes Datenmodell der Brunnenkarte Stuttgart",
+  "name": "brunnenkarte",
+  "title": "Normalisiertes Datenmodell der Brunnenkarte",
   "description": "Interne Felder fuer Brunnen, Trinkwasserbrunnen und Mineralwasserbrunnen in der ODAS-App.",
   "schema": {
     "fields": [

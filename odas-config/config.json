@@ -1,9 +1,9 @@
 {
-  "titel": "Brunnenkarte Stuttgart",
-  "seitentitel": "Brunnenkarte Stuttgart",
+  "titel": "Brunnenkarte",
+  "seitentitel": "Brunnenkarte",
   "icon": "logo_ondics.png",
   "beschreibung": [
-    "Die Brunnenkarte Stuttgart zeigt offene WFS-Daten der Landeshauptstadt Stuttgart zu Brunnen im Betrieb.",
+    "Die Brunnenkarte zeigt offene WFS-Daten der Landeshauptstadt Stuttgart zu Brunnen im Betrieb.",
     "Die App stellt Kennzahlen, Filter, Karte, Diagramm und Tabelle fuer kommunale Informationsangebote bereit.",
     "## Datenquelle",
     "https://opendata.stuttgart.de/dataset/brunnen"

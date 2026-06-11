@@ -1,8 +1,12 @@
 # Changelog
 
+## 11.06.2026
+
+- ENH: App-Name von "Brunnenkarte Stuttgart" auf "Brunnenkarte" vereinheitlicht (name-in-url, Titel, Schema, Icon).
+
 ## 22.05.2026 (Version 1.0.0)
 
-- ENH: Brunnenkarte Stuttgart mit WFS-Datenquellen, Leaflet-Karte, Marker-Clustering, KPIs, Filtern, Tabelle und Typ-Verteilung.
+- ENH: Brunnenkarte mit WFS-Datenquellen, Leaflet-Karte, Marker-Clustering, KPIs, Filtern, Tabelle und Typ-Verteilung.
 - ENH: ODAS-Metadaten, lokale Config, Schema, README und App-Icon fuer die Brunnen-App angepasst.
 - ENH: Node-Test fuer Datenquellen-Parsing, Normalisierung, Dublettenlogik und Filter ergaenzt.
 - PERF: Scroll-Wheel-Zoom der Karte deaktiviert und Chart.js durch eine leichte HTML-Verteilung ersetzt.
