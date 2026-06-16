@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.06.2026 (Version 1.3.0)
+
+- ENH: KPI-Erklärtexte nur nach Klick auf Info-Icon (ⓘ) ausklappbar (statt immer sichtbar).
+
 ## 16.06.2026 (Version 1.2.0)
 
 - ENH: Methodikbox (ausklappbar) mit Datenquelle-Hinweis und Datenstand ergaenzt (`datenquelleHinweis`, `datenStand`).

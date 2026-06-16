@@ -816,10 +816,21 @@ function renderKpis(state) {
   ];
 
   getRoot(state).querySelector(`#${state.rootId}-kpis`).innerHTML = kpis
-    .map((kpi) => {
+    .map((kpi, idx) => {
+      const n = idx + 1;
       const kontext = String(kpi.kontext || "").trim();
       const kontextHtml = kontext
-        ? `<small class="brunnen-kpi-kontext">${escapeHtml(kontext)}</small>`
+        ? (
+          '<button class="brunnen-kpi-info-toggle collapsed" type="button" ' +
+          'data-bs-toggle="collapse" data-bs-target="#brunnen-kpi-kontext-' + n + '" ' +
+          'aria-expanded="false" aria-controls="brunnen-kpi-kontext-' + n + '" ' +
+          'aria-label="Erklärung zu diesem Wert">' +
+          '<span class="brunnen-kpi-info-icon" aria-hidden="true">ⓘ</span>' +
+          '</button>' +
+          '<div id="brunnen-kpi-kontext-' + n + '" class="collapse">' +
+          '<div class="brunnen-kpi-kontext">' + escapeHtml(kontext) + '</div>' +
+          '</div>'
+        )
         : "";
       return `
         <div class="col-12 col-sm-6 col-xl-3">

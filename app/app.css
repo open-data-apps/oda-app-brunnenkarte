@@ -101,14 +101,42 @@
   padding: 1rem;
 }
 
-/* KPI-Erklärungstexte (Schale 4) */
+/* KPI-Info-Toggle (Schale 4) — Icon statt Dauertext */
+.brunnen-kpi-info-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 0.4rem;
+  cursor: pointer;
+  color: #9bb0c4;
+  font: inherit;
+  font-size: 0.75rem;
+  transition: color 0.2s ease;
+}
+.brunnen-kpi-info-toggle:hover,
+.brunnen-kpi-info-toggle:focus-visible {
+  color: #486581;
+}
+.brunnen-kpi-info-toggle:not(.collapsed) {
+  color: #486581;
+}
+.brunnen-kpi-info-icon {
+  font-size: 0.85rem;
+  font-style: normal;
+  line-height: 1;
+}
+
+/* KPI-Erklärungstexte (in Collapse, nur sichtbar nach Toggle) */
 .brunnen-kpi-kontext {
   border-top: 1px solid #eef2f6;
   color: #52616f;
   font-size: 0.8rem;
   line-height: 1.35;
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
 }
 
 /* Weitere Informationen (Schale 4) */
