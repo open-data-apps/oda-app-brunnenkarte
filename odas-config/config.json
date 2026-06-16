@@ -5,8 +5,10 @@
   "beschreibung": [
     "Die Brunnenkarte zeigt offene WFS-Daten der Landeshauptstadt Stuttgart zu Brunnen im Betrieb.",
     "Die App stellt Kennzahlen, Filter, Karte, Diagramm und Tabelle fuer kommunale Informationsangebote bereit.",
+    "## Fuer wen ist diese App?",
+    "Diese App richtet sich an Buergerinnen und Buerger in Stuttgart sowie an kommunale Stellen. Voraussetzung ist kein spezielles Datenwissen – wer im Stadtgebiet unterwegs ist und einen Trinkwasserbrunnen sucht, kann die App direkt nutzen.",
     "## Datenquelle",
-    "https://opendata.stuttgart.de/dataset/brunnen"
+    "Datensatz Brunnen: <a href='https://opendata.stuttgart.de/dataset/brunnen' target='_blank' rel='noopener'>opendata.stuttgart.de/dataset/brunnen</a>"
   ],
   "kontakt": [
     "Hinweise zur App oder zu den dargestellten Daten koennen an den jeweiligen App-Anbieter gerichtet werden."
@@ -46,5 +48,12 @@
       "url": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326"
     }
   ],
+  "weiterfuehrendeLinks": "<ul><li><a href='https://opendata.stuttgart.de/dataset/brunnen' target='_blank'>Datensatz Brunnen (OpenData Stuttgart)</a></li><li><a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap-Mitwirkende</a></li></ul>",
+  "kpiKontext1": "Summe aller im ausgewählten Bereich erfassten Brunnen.",
+  "kpiKontext2": "Öffentliche Trinkwasserbrunnen mit Trinkwasserqualität.",
+  "kpiKontext3": "Mineral- und Heilbrunnen im Betrieb.",
+  "kpiKontext4": "Zier- und sonstige Brunnenanlagen.",
+  "datenquelleHinweis": "<p>Die Standortdaten stammen aus dem WFS-Dienst der Landeshauptstadt Stuttgart (Stuttgarter GeoServer) und umfassen ausschließlich Brunnen, Trinkwasser- und Mineralwasserbrunnen <em>im Betrieb</em>.</p><p>Erhebung und Pflege erfolgen durch die zuständigen städtischen Stellen. Außer Betrieb genommene oder noch nicht erfasste Anlagen sind nicht enthalten; Vollständigkeit und Aktualität hängen vom Pflegestand der Quelle ab.</p>",
+  "datenStand": "Stand: Direktabruf der WFS-Daten (laufend aktualisiert)",
   "sprache": "de"
 }

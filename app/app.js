@@ -107,7 +107,7 @@ function renderLayout(rootId, configdata = {}) {
           <p class="brunnen-eyebrow mb-1">OpenData@Stuttgart</p>
           <h2 class="h3 mb-2">${title}</h2>
           <p class="mb-0 text-secondary">
-            Interaktive Uebersicht der Brunnen, Trinkwasserbrunnen und Mineralwasserbrunnen in Stuttgart.
+            Interaktive Übersicht der Brunnen, Trinkwasserbrunnen und Mineralwasserbrunnen in Stuttgart.
           </p>
         </div>
         <div class="brunnen-intro-actions">
@@ -209,7 +209,44 @@ function renderLayout(rootId, configdata = {}) {
         </div>
         <div class="brunnen-pagination" id="${rootId}-pagination"></div>
       </section>
+
+      ${renderMethodikbox(configdata)}
+      ${renderWeitereInfos(configdata)}
     </div>
+  `;
+}
+
+function renderMethodikbox(configdata = {}) {
+  const hinweis = String(configdata.datenquelleHinweis || "").trim();
+  const stand = String(configdata.datenStand || "").trim();
+  if (!hinweis && !stand) return "";
+  const standHtml = stand
+    ? `<p class="brunnen-methodik-stand">${escapeHtml(stand)}</p>`
+    : "";
+  return `
+    <section class="brunnen-methodik mt-4">
+      <button class="brunnen-methodik-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#brunnen-methodik-body" aria-expanded="false" aria-controls="brunnen-methodik-body">
+        <span class="h5 mb-0">Methodik &amp; Datenquelle</span>
+        <span class="brunnen-methodik-chevron" aria-hidden="true">&#9662;</span>
+      </button>
+      <div id="brunnen-methodik-body" class="collapse">
+        <div class="brunnen-methodik-content">
+          ${standHtml}
+          ${hinweis}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderWeitereInfos(configdata = {}) {
+  const links = String(configdata.weiterfuehrendeLinks || "").trim();
+  if (!links) return "";
+  return `
+    <section class="brunnen-weitere-infos mt-4">
+      <h3 class="h5 mb-3">Weitere Informationen</h3>
+      <div class="brunnen-weitere-infos-content">${links}</div>
+    </section>
   `;
 }
 
@@ -228,7 +265,10 @@ function bindUiEvents(container, state) {
 
   [search, type, district, source, visible].forEach((element) => {
     if (!element) return;
-    element.addEventListener(element.type === "search" ? "input" : "change", filterChanged);
+    element.addEventListener(
+      element.type === "search" ? "input" : "change",
+      filterChanged,
+    );
   });
 
   container.addEventListener("click", (event) => {
@@ -278,7 +318,11 @@ async function fetchAllSources(configdata = {}) {
         const records = features
           .map((feature, index) => normalizeRecord(feature, source, index))
           .filter((record) => {
-            if (!record || !Number.isFinite(record.lat) || !Number.isFinite(record.lng)) {
+            if (
+              !record ||
+              !Number.isFinite(record.lat) ||
+              !Number.isFinite(record.lng)
+            ) {
               skipped += 1;
               return false;
             }
@@ -290,7 +334,8 @@ async function fetchAllSources(configdata = {}) {
           records,
           skipped,
           error: null,
-          totalFeatures: parsed.totalFeatures || parsed.numberMatched || features.length,
+          totalFeatures:
+            parsed.totalFeatures || parsed.numberMatched || features.length,
         };
       } catch (error) {
         return {
@@ -341,7 +386,9 @@ function parseDataSources(value) {
   }
 
   if (value && typeof value === "object") {
-    const sources = Array.isArray(value.dataSources) ? value.dataSources : [value];
+    const sources = Array.isArray(value.dataSources)
+      ? value.dataSources
+      : [value];
     const normalized = sources.map(normalizeSource).filter(Boolean);
     return normalized.length ? normalized : cloneDefaultDataSources();
   }
@@ -395,7 +442,8 @@ function extractFeatures(payload) {
   if (!payload) return [];
   if (Array.isArray(payload)) return payload;
   if (Array.isArray(payload.features)) return payload.features;
-  if (payload.result && Array.isArray(payload.result.records)) return payload.result.records;
+  if (payload.result && Array.isArray(payload.result.records))
+    return payload.result.records;
   if (Array.isArray(payload.records)) return payload.records;
   if (Array.isArray(payload.data)) return payload.data;
   return [];
@@ -443,7 +491,12 @@ function normalizeRecord(rawRecord, source, index) {
     "QUARTIER",
     "quartier",
   ]);
-  const status = firstText(properties, ["STATUS", "status", "ZUSTAND", "zustand"]);
+  const status = firstText(properties, [
+    "STATUS",
+    "status",
+    "ZUSTAND",
+    "zustand",
+  ]);
   const operator = firstText(properties, [
     "UNTERHALTUNG",
     "unterhaltung",
@@ -482,8 +535,12 @@ function extractCoordinates(geometry, properties) {
     }
   }
 
-  const lat = Number(firstText(properties, ["lat", "latitude", "LAT", "Y", "y"]));
-  const lng = Number(firstText(properties, ["lng", "lon", "longitude", "LON", "X", "x"]));
+  const lat = Number(
+    firstText(properties, ["lat", "latitude", "LAT", "Y", "y"]),
+  );
+  const lng = Number(
+    firstText(properties, ["lng", "lon", "longitude", "LON", "X", "x"]),
+  );
   if (Number.isFinite(lat) && Number.isFinite(lng)) {
     return { lat, lng };
   }
@@ -535,7 +592,9 @@ function inferRecordType(properties, source) {
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
-  const drinkingWaterText = stringifyValue(properties.TRINKWASSER).toLowerCase();
+  const drinkingWaterText = stringifyValue(
+    properties.TRINKWASSER,
+  ).toLowerCase();
   const positiveDrinkingWater =
     drinkingWaterText.includes("trinkwasser") &&
     !/(kein|keine|nicht|nein|no)\s+trinkwasser/.test(drinkingWaterText);
@@ -554,7 +613,9 @@ function normalizeType(value) {
   if (normalized.includes("mineral")) return "mineralwasser";
   if (normalized.includes("trink")) return "trinkwasser";
   if (normalized.includes("brunnen")) return "brunnen";
-  return ["brunnen", "trinkwasser", "mineralwasser"].includes(normalized) ? normalized : "brunnen";
+  return ["brunnen", "trinkwasser", "mineralwasser"].includes(normalized)
+    ? normalized
+    : "brunnen";
 }
 
 function dedupeRecords(records) {
@@ -563,7 +624,10 @@ function dedupeRecords(records) {
     if (!record || !record.dedupeKey) return;
     const existing = byKey.get(record.dedupeKey);
     if (!existing) {
-      byKey.set(record.dedupeKey, { ...record, sourceLabels: [...record.sourceLabels] });
+      byKey.set(record.dedupeKey, {
+        ...record,
+        sourceLabels: [...record.sourceLabels],
+      });
       return;
     }
 
@@ -575,9 +639,17 @@ function dedupeRecords(records) {
 }
 
 function mergeRecords(existing, incoming) {
-  const preferred = typePriority(incoming.type) >= typePriority(existing.type) ? incoming : existing;
+  const preferred =
+    typePriority(incoming.type) >= typePriority(existing.type)
+      ? incoming
+      : existing;
   const secondary = preferred === incoming ? existing : incoming;
-  const sourceLabels = [...new Set([...(existing.sourceLabels || []), ...(incoming.sourceLabels || [])])];
+  const sourceLabels = [
+    ...new Set([
+      ...(existing.sourceLabels || []),
+      ...(incoming.sourceLabels || []),
+    ]),
+  ];
 
   return {
     ...secondary,
@@ -593,11 +665,13 @@ function mergeRecords(existing, incoming) {
 }
 
 function typePriority(type) {
-  return {
-    brunnen: 1,
-    trinkwasser: 2,
-    mineralwasser: 3,
-  }[type] || 0;
+  return (
+    {
+      brunnen: 1,
+      trinkwasser: 2,
+      mineralwasser: 3,
+    }[type] || 0
+  );
 }
 
 function createDedupeKey(id, coordinates, label) {
@@ -612,8 +686,10 @@ function createDedupeKey(id, coordinates, label) {
 function filterRecords(records, filters = {}) {
   const search = normalizeSearch(filters.search);
   const type = filters.type && filters.type !== "all" ? filters.type : "";
-  const district = filters.district && filters.district !== "all" ? filters.district : "";
-  const source = filters.source && filters.source !== "all" ? filters.source : "";
+  const district =
+    filters.district && filters.district !== "all" ? filters.district : "";
+  const source =
+    filters.source && filters.source !== "all" ? filters.source : "";
 
   return records.filter((record) => {
     if (type && record.type !== type) return false;
@@ -639,7 +715,8 @@ function applyFilters(state, options = {}) {
 
 function readFilters(state) {
   const root = getRoot(state);
-  const visibleOnly = root.querySelector(`#${state.rootId}-visible`)?.checked || false;
+  const visibleOnly =
+    root.querySelector(`#${state.rootId}-visible`)?.checked || false;
   const bounds = visibleOnly && state.map ? state.map.getBounds() : null;
 
   return {
@@ -670,12 +747,22 @@ function populateFilterOptions(state) {
 
   setSelectOptions(
     districtSelect,
-    ["all", ...uniqueSorted(state.allRecords.map((record) => record.district).filter(Boolean))],
+    [
+      "all",
+      ...uniqueSorted(
+        state.allRecords.map((record) => record.district).filter(Boolean),
+      ),
+    ],
     "Alle",
   );
   setSelectOptions(
     sourceSelect,
-    ["all", ...uniqueSorted(state.allRecords.flatMap((record) => record.sourceLabels || []))],
+    [
+      "all",
+      ...uniqueSorted(
+        state.allRecords.flatMap((record) => record.sourceLabels || []),
+      ),
+    ],
     "Alle",
   );
 }
@@ -694,46 +781,57 @@ function setSelectOptions(select, values, allLabel) {
 function renderKpis(state) {
   const counts = countByType(state.filteredRecords);
   const total = state.filteredRecords.length;
-  const drinkingShare = total > 0 ? Math.round((counts.trinkwasser / total) * 100) : 0;
+  const drinkingShare =
+    total > 0 ? Math.round((counts.trinkwasser / total) * 100) : 0;
+  const cfg = state.config || {};
   const kpis = [
     {
       label: "Alle Brunnen",
       value: formatNumber(total),
       note: `${formatNumber(state.allRecords.length)} geladen`,
       type: "total",
+      kontext: cfg.kpiKontext1,
     },
     {
       label: "Trinkwasser",
       value: formatNumber(counts.trinkwasser),
       note: `${drinkingShare} % der Auswahl`,
       type: "trinkwasser",
+      kontext: cfg.kpiKontext2,
     },
     {
       label: "Mineralwasser",
       value: formatNumber(counts.mineralwasser),
       note: "Mineralbrunnen im Betrieb",
       type: "mineralwasser",
+      kontext: cfg.kpiKontext3,
     },
     {
       label: "Sonstige",
       value: formatNumber(counts.brunnen),
       note: "Weitere Brunnenanlagen",
       type: "brunnen",
+      kontext: cfg.kpiKontext4,
     },
   ];
 
   getRoot(state).querySelector(`#${state.rootId}-kpis`).innerHTML = kpis
-    .map(
-      (kpi) => `
+    .map((kpi) => {
+      const kontext = String(kpi.kontext || "").trim();
+      const kontextHtml = kontext
+        ? `<small class="brunnen-kpi-kontext">${escapeHtml(kontext)}</small>`
+        : "";
+      return `
         <div class="col-12 col-sm-6 col-xl-3">
           <article class="brunnen-kpi brunnen-kpi-${kpi.type}">
             <span>${escapeHtml(kpi.label)}</span>
             <strong>${escapeHtml(kpi.value)}</strong>
             <small>${escapeHtml(kpi.note)}</small>
+            ${kontextHtml}
           </article>
         </div>
-      `,
-    )
+      `;
+    })
     .join("");
 }
 
@@ -741,20 +839,28 @@ function renderMap(state, options = {}) {
   const root = getRoot(state);
   const mapElement = root.querySelector(`#${state.rootId}-map`);
   if (!state.leafletReady || !window.L || !mapElement) {
-    mapElement.innerHTML = '<div class="brunnen-map-message">Karte konnte nicht geladen werden.</div>';
+    mapElement.innerHTML =
+      '<div class="brunnen-map-message">Karte konnte nicht geladen werden.</div>';
     return;
   }
 
   if (!state.map) {
-    state.map = window.L.map(mapElement, getMapOptions()).setView([48.7758, 9.1829], 12);
+    state.map = window.L.map(mapElement, getMapOptions()).setView(
+      [48.7758, 9.1829],
+      12,
+    );
 
     window.L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(state.map);
 
     state.markerLayer = window.L.markerClusterGroup
-      ? window.L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 48 })
+      ? window.L.markerClusterGroup({
+          showCoverageOnHover: false,
+          maxClusterRadius: 48,
+        })
       : window.L.layerGroup();
     state.markerLayer.addTo(state.map);
 
@@ -800,7 +906,7 @@ function createMarkerIcon(type) {
   const meta = getTypeMeta(type);
   return window.L.divIcon({
     className: `brunnen-marker ${meta.markerClass}`,
-    html: '<span></span>',
+    html: "<span></span>",
     iconSize: [24, 24],
     iconAnchor: [12, 12],
     popupAnchor: [0, -12],
@@ -846,7 +952,9 @@ function renderChart(state) {
 
 function renderTable(state) {
   const root = getRoot(state);
-  const sorted = [...state.filteredRecords].sort((a, b) => compareRecords(a, b, state));
+  const sorted = [...state.filteredRecords].sort((a, b) =>
+    compareRecords(a, b, state),
+  );
   const maxPage = Math.max(1, Math.ceil(sorted.length / state.pageSize));
   state.currentPage = Math.min(state.currentPage, maxPage);
   const start = (state.currentPage - 1) * state.pageSize;
@@ -854,9 +962,10 @@ function renderTable(state) {
 
   root.querySelector(`#${state.rootId}-result-count`).textContent =
     `${formatNumber(sorted.length)} Ergebnisse`;
-  root.querySelector(`#${state.rootId}-table-body`).innerHTML = pageRecords.length
-    ? pageRecords.map(renderTableRow).join("")
-    : `
+  root.querySelector(`#${state.rootId}-table-body`).innerHTML =
+    pageRecords.length
+      ? pageRecords.map(renderTableRow).join("")
+      : `
       <tr>
         <td colspan="5">
           <div class="brunnen-empty">Keine Brunnen fuer diese Filterkombination gefunden.</div>
@@ -887,7 +996,9 @@ function renderTableRow(record) {
 }
 
 function renderPagination(state, maxPage) {
-  const pagination = getRoot(state).querySelector(`#${state.rootId}-pagination`);
+  const pagination = getRoot(state).querySelector(
+    `#${state.rootId}-pagination`,
+  );
   if (maxPage <= 1) {
     pagination.innerHTML = "";
     return;
@@ -924,7 +1035,10 @@ function focusRecord(state, key) {
   const record = state.filteredRecords.find((item) => item.dedupeKey === key);
   if (!marker || !record || !state.map) return;
 
-  state.map.setView([record.lat, record.lng], Math.max(state.map.getZoom(), 16));
+  state.map.setView(
+    [record.lat, record.lng],
+    Math.max(state.map.getZoom(), 16),
+  );
   marker.openPopup();
   highlightTableRow(state, key);
 }
@@ -932,7 +1046,10 @@ function focusRecord(state, key) {
 function highlightTableRow(state, key) {
   const root = getRoot(state);
   root.querySelectorAll("[data-row-key]").forEach((row) => {
-    row.classList.toggle("brunnen-row-active", row.getAttribute("data-row-key") === key);
+    row.classList.toggle(
+      "brunnen-row-active",
+      row.getAttribute("data-row-key") === key,
+    );
   });
 }
 
@@ -998,7 +1115,16 @@ function setBusy(state, busy, text = "") {
 
 function exportCsv(records) {
   const rows = [
-    ["Name", "Typ", "Lage", "Bezirk", "Status", "Quelle", "Latitude", "Longitude"],
+    [
+      "Name",
+      "Typ",
+      "Lage",
+      "Bezirk",
+      "Status",
+      "Quelle",
+      "Latitude",
+      "Longitude",
+    ],
     ...records.map((record) => [
       record.name,
       record.typeLabel,
@@ -1027,8 +1153,15 @@ function csvCell(value) {
 
 function loadLeaflet() {
   return Promise.all([
-    loadStylesheetOnce("leaflet-css", "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"),
-    loadScriptOnce("leaflet-js", "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", () => window.L),
+    loadStylesheetOnce(
+      "leaflet-css",
+      "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
+    ),
+    loadScriptOnce(
+      "leaflet-js",
+      "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+      () => window.L,
+    ),
   ]).then(() =>
     Promise.all([
       loadStylesheetOnce(
@@ -1056,7 +1189,8 @@ function loadStylesheetOnce(id, href) {
     link.rel = "stylesheet";
     link.href = href;
     link.onload = resolve;
-    link.onerror = () => reject(new Error(`Stylesheet konnte nicht geladen werden: ${href}`));
+    link.onerror = () =>
+      reject(new Error(`Stylesheet konnte nicht geladen werden: ${href}`));
     document.head.appendChild(link);
   });
 }
@@ -1067,7 +1201,9 @@ function loadScriptOnce(id, src, readyCheck) {
     return new Promise((resolve, reject) => {
       const existing = document.getElementById(id);
       existing.addEventListener("load", () => resolve());
-      existing.addEventListener("error", () => reject(new Error(`Skript konnte nicht geladen werden: ${src}`)));
+      existing.addEventListener("error", () =>
+        reject(new Error(`Skript konnte nicht geladen werden: ${src}`)),
+      );
     });
   }
 
@@ -1077,7 +1213,8 @@ function loadScriptOnce(id, src, readyCheck) {
     script.src = src;
     script.async = true;
     script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`Skript konnte nicht geladen werden: ${src}`));
+    script.onerror = () =>
+      reject(new Error(`Skript konnte nicht geladen werden: ${src}`));
     document.head.appendChild(script);
   });
 }
@@ -1154,7 +1291,9 @@ function normalizeSearch(value) {
 }
 
 function slugify(value) {
-  return normalizeSearch(value).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return normalizeSearch(value)
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 function uniqueSorted(values) {
@@ -1197,7 +1336,10 @@ function addToHead() {
   return;
 }
 
-if (typeof globalThis !== "undefined" && globalThis.__BRUNNENKARTE_ENABLE_TEST_API__) {
+if (
+  typeof globalThis !== "undefined" &&
+  globalThis.__BRUNNENKARTE_ENABLE_TEST_API__
+) {
   globalThis.__brunnenkarteTestApi = {
     parseDataSources,
     normalizeRecord,

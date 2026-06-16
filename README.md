@@ -14,6 +14,10 @@ Die App entspricht dem ODAS-V1-Modell auf Basis des `oda-generic` Templates: Die
 - CSV-Export der aktuell gefilterten Datensaetze
 - Robuste Fehleranzeige, wenn einzelne Quellen nicht geladen werden koennen
 
+## Fuer wen ist diese App?
+
+Diese App richtet sich an Buergerinnen und Buerger in Stuttgart sowie an kommunale Stellen. Voraussetzung ist kein spezielles Datenwissen – wer im Stadtgebiet unterwegs ist und einen Trinkwasserbrunnen sucht, kann die App direkt nutzen.
+
 ## Datenquellen-Beispiel
 
 Die lokale Beispielkonfiguration nutzt den Datensatz **Brunnen** von OpenData@Stuttgart:
