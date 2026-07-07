@@ -3,12 +3,20 @@
   "seitentitel": "Brunnenkarte",
   "icon": "logo_ondics.png",
   "beschreibung": [
-    "Die Brunnenkarte zeigt offene WFS-Daten der Landeshauptstadt Stuttgart zu Brunnen im Betrieb.",
-    "Die App stellt Kennzahlen, Filter, Karte, Diagramm und Tabelle fuer kommunale Informationsangebote bereit.",
-    "## Fuer wen ist diese App?",
-    "Diese App richtet sich an Buergerinnen und Buerger in Stuttgart sowie an kommunale Stellen. Voraussetzung ist kein spezielles Datenwissen – wer im Stadtgebiet unterwegs ist und einen Trinkwasserbrunnen sucht, kann die App direkt nutzen.",
-    "## Datenquelle",
-    "Datensatz Brunnen: <a href='https://opendata.stuttgart.de/dataset/brunnen' target='_blank' rel='noopener'>opendata.stuttgart.de/dataset/brunnen</a>"
+    "<p>Die Brunnenkarte zeigt Brunnenstandorte in Stuttgart auf einer interaktiven Karte und bereitet die offenen Geodaten verständlich auf.</p>",
+    "<p>Sie macht Trinkwasserbrunnen, Mineralwasserbrunnen und weitere Brunnenarten leichter auffindbar.</p>",
+    "<h3>Inhalte</h3>",
+    "<p>Die App zeigt Standortpunkte, Kategorien, Detailinformationen und Kennzahlen aus dem angebundenen WFS-/GeoJSON-Dienst.</p>",
+    "<p>Filter und Kartenfunktionen helfen dabei, Brunnen nach Art oder Lage zu erkunden.</p>",
+    "<h3>Nutzung</h3>",
+    "<p>Öffnen Sie die Karte, wählen Sie einen Brunnen aus und lesen Sie die verfügbaren Detailinformationen. Die App stellt die gelieferten Geodaten dar und ergänzt keine Vor-Ort-Prüfung.</p>",
+    "<h3>Für wen ist diese App?</h3>",
+    "<p>Die App richtet sich an Bürger:innen, Besucher:innen, Stadtplanung, Umwelt- und Gesundheitsstellen sowie alle, die öffentliche Brunnenstandorte besser überblicken möchten. Besondere Datenkenntnisse sind für die Nutzung nicht erforderlich.</p>",
+    "<h3>Datenquelle</h3>",
+    "<p>Die Standortdaten stammen aus dem Open-Data-Angebot der Landeshauptstadt Stuttgart.</p>",
+    "<ul><li><strong>Open Data Portal:</strong> <a href=\"https://opendata.stuttgart.de\" target=\"_blank\" rel=\"noopener\">Open Data Stuttgart</a></li><li><strong>Datensatz:</strong> <a href=\"https://opendata.stuttgart.de/dataset/brunnen\" target=\"_blank\" rel=\"noopener\">Brunnen</a></li></ul>",
+    "<h3>Open Data App Store</h3>",
+    "<p>Diese App ist für den Open Data App Store vorbereitet und kann mit kommunalen Brunnen- oder vergleichbaren Standortdaten konfiguriert werden.</p>"
   ],
   "kontakt": [
     "Hinweise zur App oder zu den dargestellten Daten koennen an den jeweiligen App-Anbieter gerichtet werden."
