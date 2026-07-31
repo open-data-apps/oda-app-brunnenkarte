@@ -3,7 +3,7 @@
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "brunnenkarte",
   "name": "Brunnenkarte",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "odas-app-icon": "assets/odas-app-icon.svg",
   "app-icon": "assets/odas-app-icon.svg",
   "kurzbeschreibung": "Interaktive Karten- und Analyse-App für Brunnenstandorte in Stuttgart.",
@@ -294,12 +294,12 @@
     "sprache": {
       "label": "Sprache der App",
       "hilfe": "Angabe der App-Sprache.",
+      "default": "de",
       "format": {
         "typ": "dropdown",
         "optionen": [
           "de"
-        ],
-        "default": "de"
+        ]
       },
       "erforderlich": "ja"
     }

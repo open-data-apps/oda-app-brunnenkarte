@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.0 - 2026-07-31
+- FIX: URL-Attribute werden auf http/https geprüft (F-08); eine javascript:-URL aus der Datenquelle ist nicht mehr ausführbar
+- CHG: dropdown-Default auf Feldebene verschoben statt in format (F-18)
+- CHG: assets/schema.json auf ein flaches Frictionless Table Schema gebracht (F-20)
+
 ## 1.6.0 - 2026-07-30
 
 - **FIX:** Laufzeitfehler nach dem Laden der Konfiguration werden jetzt sichtbar gemeldet; `handleRouting()` wird `await`et und besitzt einen Fehlerpfad. Bisher blieb die Seite bei einem Fehler im Seitenaufbau stumm leer

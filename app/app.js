@@ -175,7 +175,7 @@ async function initializeApp(state) {
 function renderLayout(rootId, configdata = {}) {
   const title = escapeHtml(configdata.titel || "Brunnenkarte");
   const dataUrl = escapeAttribute(
-    configdata.urlDaten || "https://opendata.stuttgart.de/dataset/brunnen",
+    safeUrl(configdata.urlDaten) || "https://opendata.stuttgart.de/dataset/brunnen",
   );
 
   return `
@@ -1412,6 +1412,17 @@ function escapeHtml(value) {
 
 function escapeAttribute(value) {
   return escapeHtml(value);
+}
+
+// Laesst nur http- und https-URLs durch. Maskierung allein reicht hier nicht:
+// eine javascript:-URL aus der Instanz-Konfiguration bliebe sonst ausfuehrbar.
+function safeUrl(value = "") {
+  try {
+    const url = new URL(String(value), window.location.href);
+    return url.protocol === "http:" || url.protocol === "https:" ? url.href : "";
+  } catch {
+    return "";
+  }
 }
 
 function getRoot(state) {
