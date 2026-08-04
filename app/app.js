@@ -1241,11 +1241,11 @@ function loadLeaflet() {
   return Promise.all([
     loadStylesheetOnce(
       "leaflet-css",
-      "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
+      "vendor/leaflet/leaflet.css",
     ),
     loadScriptOnce(
       "leaflet-js",
-      "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+      "vendor/leaflet/leaflet.js",
       () => window.L,
     ),
   ]).then(() =>
