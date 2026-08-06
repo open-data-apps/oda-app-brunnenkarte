@@ -1252,15 +1252,15 @@ function loadLeaflet() {
     Promise.all([
       loadStylesheetOnce(
         "leaflet-markercluster-css",
-        "https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css",
+        "vendor/markercluster/MarkerCluster.css",
       ),
       loadStylesheetOnce(
         "leaflet-markercluster-default-css",
-        "https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css",
+        "vendor/markercluster/MarkerCluster.Default.css",
       ),
       loadScriptOnce(
         "leaflet-markercluster-js",
-        "https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js",
+        "vendor/markercluster/leaflet.markercluster.js",
         () => window.L && window.L.markerClusterGroup,
       ),
     ]),
