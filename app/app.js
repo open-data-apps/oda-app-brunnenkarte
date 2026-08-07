@@ -1,3 +1,5 @@
+let brInstanzZaehler = 0;
+
 const BRUNNEN_APP_VERSION = "1.0.0";
 
 const BRUNNEN_TYPE_META = {
@@ -118,10 +120,12 @@ async function fetchOdasJson(targetUrl, configdata = {}) {
 }
 
 function app(configdata = {}, enclosingHtmlDivElement) {
+  const brUid = "i" + ++brInstanzZaehler;
   const rootId = `brunnenkarte-${Date.now()}`;
   const state = {
     config: configdata || {},
     rootId,
+    uid: brUid,
     map: null,
     markerLayer: null,
     markersByKey: new Map(),
@@ -138,7 +142,7 @@ function app(configdata = {}, enclosingHtmlDivElement) {
     sortDirection: "asc",
   };
 
-  enclosingHtmlDivElement.innerHTML = renderLayout(rootId, configdata);
+  enclosingHtmlDivElement.innerHTML = renderLayout(rootId, configdata, brUid);
   bindUiEvents(enclosingHtmlDivElement, state);
   initializeApp(state);
   return null;
@@ -172,7 +176,7 @@ async function initializeApp(state) {
   setBusy(state, false);
 }
 
-function renderLayout(rootId, configdata = {}) {
+function renderLayout(rootId, configdata = {}, uid) {
   const title = escapeHtml(configdata.titel || "Brunnenkarte");
   const dataUrl = escapeAttribute(
     safeUrl(configdata.urlDaten) || "https://opendata.stuttgart.de/dataset/brunnen",
@@ -288,13 +292,13 @@ function renderLayout(rootId, configdata = {}) {
         <div class="brunnen-pagination" id="${rootId}-pagination"></div>
       </section>
 
-      ${renderMethodikbox(configdata)}
+      ${renderMethodikbox(configdata, uid)}
       ${renderWeitereInfos(configdata)}
     </div>
   `;
 }
 
-function renderMethodikbox(configdata = {}) {
+function renderMethodikbox(configdata = {}, uid) {
   const hinweis = String(configdata.datenquelleHinweis || "").trim();
   const stand = String(configdata.datenStand || "").trim();
   if (!hinweis && !stand) return "";
@@ -303,11 +307,11 @@ function renderMethodikbox(configdata = {}) {
     : "";
   return `
     <section class="brunnen-methodik mt-4">
-      <button class="brunnen-methodik-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#brunnen-methodik-body" aria-expanded="false" aria-controls="brunnen-methodik-body">
+      <button class="brunnen-methodik-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#brunnen-methodik-body-${uid}" aria-expanded="false" aria-controls="brunnen-methodik-body-${uid}">
         <span class="h5 mb-0">Methodik &amp; Datenquelle</span>
         <span class="brunnen-methodik-chevron" aria-hidden="true">&#9662;</span>
       </button>
-      <div id="brunnen-methodik-body" class="collapse">
+      <div id="brunnen-methodik-body-${uid}" class="collapse">
         <div class="brunnen-methodik-content">
           ${standHtml}
           ${hinweis}
@@ -897,12 +901,12 @@ function renderKpis(state) {
       const kontextHtml = kontext
         ? (
           '<button class="brunnen-kpi-info-toggle collapsed" type="button" ' +
-          'data-bs-toggle="collapse" data-bs-target="#brunnen-kpi-kontext-' + n + '" ' +
-          'aria-expanded="false" aria-controls="brunnen-kpi-kontext-' + n + '" ' +
+          'data-bs-toggle="collapse" data-bs-target="#brunnen-kpi-kontext-' + n + '-' + state.uid + '" ' +
+          'aria-expanded="false" aria-controls="brunnen-kpi-kontext-' + n + '-' + state.uid + '" ' +
           'aria-label="Erklärung zu diesem Wert">' +
           '<span class="brunnen-kpi-info-icon" aria-hidden="true">ⓘ</span>' +
           '</button>' +
-          '<div id="brunnen-kpi-kontext-' + n + '" class="collapse">' +
+          '<div id="brunnen-kpi-kontext-' + n + '-' + state.uid + '" class="collapse">' +
           '<div class="brunnen-kpi-kontext">' + escapeHtml(kontext) + '</div>' +
           '</div>'
         )
