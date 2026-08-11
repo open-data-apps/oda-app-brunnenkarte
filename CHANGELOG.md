@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.17.0 - 2026-08-11
+- FIX: Laufzeitzustand pro App-Instanz isoliert (F-42): Root-ID aus `Date.now()` durch den monotonen Instanzzähler ersetzt — `const rootId = "brunnenkarte-" + brInstanzZaehler;` teilt sich mit `brUid = "i" + ++brInstanzZaehler` denselben Zählerstand N; alle `${rootId}-…`-IDs bleiben damit je Instanz eindeutig (auch bei zwei Renders im selben Millisekunden-Takt); das per-Instanz-State-Objekt (`state`) bleibt unverändert
+
 ## 1.16.0 - 2026-08-07
 - FIX: Bootstrap-Ziele instanzeindeutig machen (F-32)
 

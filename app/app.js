@@ -121,7 +121,10 @@ async function fetchOdasJson(targetUrl, configdata = {}) {
 
 function app(configdata = {}, enclosingHtmlDivElement) {
   const brUid = "i" + ++brInstanzZaehler;
-  const rootId = `brunnenkarte-${Date.now()}`;
+  // Instanzkennung: brUid ("i" + N) und rootId ("brunnenkarte-" + N) teilen
+  // sich denselben Zählerstand N — damit bleibt die Root-ID je Instanz monoton
+  // eindeutig (ersetzt Date.now(), das bei zwei Renders im selben ms kollidiert).
+  const rootId = "brunnenkarte-" + brInstanzZaehler;
   const state = {
     config: configdata || {},
     rootId,
