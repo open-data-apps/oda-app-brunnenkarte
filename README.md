@@ -64,7 +64,7 @@ Empfohlen ist VS Code Live Server aus der Projektwurzel:
 
 Dann die App unter `http://127.0.0.1:<live-server-port>/app/` oeffnen. Live Server nutzt standardmaessig Port `5500`.
 
-Fuer lokale Live-Server-Tests muss in `app/app-base.js` der bereits vorhandene localhost-Block in `getConfigUrl()` temporaer aktiviert werden, damit `../odas-config/config.json` geladen wird. Vor ZIP-Erstellung oder ODAS-Live-Auslieferung muss dieser Block wieder auskommentiert sein.
+Die App erkennt Localhost (127.0.0.1/localhost) automatisch und laedt dann `odas-config/config.json`; kein Edit an `app/app-base.js` noetig.
 
 ## Docker
 
@@ -77,11 +77,13 @@ Die Docker-Variante nutzt die Template-Dateien `Dockerfile`, `docker-compose.yml
 
 ## Tests
 
-Die wichtigsten Normalisierungs- und Filterfunktionen werden mit einem kleinen Node-Test geprueft:
+Die Portfolio-Regressionen sichern die Findings der Welle K (u. a. External-Host-Allowlist) reproduzierbar ab:
 
 ```bash
-node tools/test_app_logic.mjs
+bash ../tools/odas-audit-regression/run-all.sh
 ```
+
+Die je App abgedeckten Checks sind im README der Regressionen dokumentiert (`tools/odas-audit-regression/README.md`).
 
 ## Lieferumfang
 
