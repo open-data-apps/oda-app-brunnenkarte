@@ -1,5 +1,11 @@
 let brInstanzZaehler = 0;
 
+// F-43: Registrierte Instanzen (Container -> State), damit der Top-Level-Hook
+// onPageLeave() alle gemounteten Instanzen aufraeumen kann. Die Base ruft den
+// Hook global ohne Container-Parameter auf; eine iterierbare Map ist daher das
+// zur App passende Muster (schulwegsicherheit-Portfoliomuster).
+const brunnenInstances = new Map();
+
 const BRUNNEN_APP_VERSION = "1.0.0";
 
 const BRUNNEN_TYPE_META = {
@@ -119,6 +125,30 @@ async function fetchOdasJson(targetUrl, configdata = {}) {
   return JSON.parse(await fetchOdasResource(targetUrl, configdata));
 }
 
+/*
+ * Template-Hook (oda-generic 1.4.0). Die Base ruft ihn vor dem Rendern der neuen
+ * Seite auf. Diese App haelt eine Leaflet-Karte mit MarkerCluster-Layer und
+ * Marker-Referenzen; der Hook entfernt die Karte (raeumt dabei den
+ * markerClusterGroup-Layer mit ab), leert die Marker-Referenzen und macht
+ * späte Async-Renders durch das disposed-Flag wirkungslos.
+ */
+function onPageLeave(page) {
+  brunnenInstances.forEach((state, container) => {
+    state.disposed = true;
+    if (state.map) {
+      try {
+        state.map.remove();
+      } catch (error) {
+        console.warn("Fehler beim Entfernen der Leaflet-Karte:", error);
+      }
+      state.map = null;
+    }
+    state.markerLayer = null;
+    state.markersByKey.clear();
+    brunnenInstances.delete(container);
+  });
+}
+
 function app(configdata = {}, enclosingHtmlDivElement) {
   const brUid = "i" + ++brInstanzZaehler;
   // Instanzkennung: brUid ("i" + N) und rootId ("brunnenkarte-" + N) teilen
@@ -143,8 +173,10 @@ function app(configdata = {}, enclosingHtmlDivElement) {
     pageSize: 15,
     sortField: "name",
     sortDirection: "asc",
+    disposed: false,
   };
 
+  brunnenInstances.set(enclosingHtmlDivElement, state);
   enclosingHtmlDivElement.innerHTML = renderLayout(rootId, configdata, brUid);
   bindUiEvents(enclosingHtmlDivElement, state);
   initializeApp(state);
@@ -167,6 +199,8 @@ async function initializeApp(state) {
 
   const dataTask = fetchAllSources(state.config);
   const [dataResult] = await Promise.all([dataTask, leafletTask]);
+
+  if (state.disposed) return;
 
   state.allRecords = dataResult.records;
   state.loadErrors.push(...dataResult.errors);
