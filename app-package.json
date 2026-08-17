@@ -3,7 +3,7 @@
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "brunnenkarte",
   "name": "Brunnenkarte",
-  "version": "1.19.0",
+  "version": "1.20.0",
   "odas-app-icon": "assets/odas-app-icon.svg",
   "app-icon": "assets/odas-app-icon.svg",
   "kurzbeschreibung": "Interaktive Karten- und Analyse-App für Brunnenstandorte in Stuttgart.",
@@ -55,7 +55,7 @@
   "instanz-config": {
     "seitentitel": {
       "label": "Seitentitel",
-      "category": "general",
+      "category": "allgemein",
       "hilfe": "Der Seitentitel wird im Browser-Tab der App angezeigt.",
       "default": "Brunnenkarte",
       "format": {
@@ -66,7 +66,7 @@
     },
     "titel": {
       "label": "Titel",
-      "category": "general",
+      "category": "allgemein",
       "hilfe": "Der Titel wird in der Titelzeile der App angezeigt.",
       "default": "Brunnenkarte",
       "format": {
@@ -77,7 +77,7 @@
     },
     "icon": {
       "label": "App-Icon",
-      "category": "general",
+      "category": "allgemein",
       "hilfe": "Das Icon wird links oben in der Titelzeile angezeigt.",
       "default": "logo_ondics.png",
       "format": {
@@ -89,7 +89,7 @@
     },
     "beschreibung": {
       "label": "Beschreibung",
-      "category": "content",
+      "category": "beschreibung",
       "hilfe": "Der Text wird im Menüpunkt 'Über diese App' angezeigt.",
       "format": {
         "typ": "markdown"
@@ -115,7 +115,7 @@
     },
     "kontakt": {
       "label": "Kontakt",
-      "category": "contact-legal",
+      "category": "kontakt-rechtliches",
       "hilfe": "Der Text wird im Menüpunkt 'Kontakt' angezeigt.",
       "format": {
         "typ": "markdown"
@@ -128,7 +128,7 @@
     },
     "impressum": {
       "label": "Impressum",
-      "category": "contact-legal",
+      "category": "kontakt-rechtliches",
       "hilfe": "Der Text wird im Menüpunkt 'Impressum' angezeigt.",
       "format": {
         "typ": "markdown"
@@ -144,7 +144,7 @@
     },
     "datenschutz": {
       "label": "Datenschutz",
-      "category": "contact-legal",
+      "category": "kontakt-rechtliches",
       "hilfe": "Der Text wird im Menüpunkt 'Datenschutz' angezeigt.",
       "format": {
         "typ": "markdown"
@@ -160,7 +160,7 @@
     },
     "fusszeile": {
       "label": "Fußzeile",
-      "category": "contact-legal",
+      "category": "kontakt-rechtliches",
       "hilfe": "Wird unten in der App angezeigt.",
       "format": {
         "typ": "string",
@@ -171,7 +171,7 @@
     },
     "brandingCSS": {
       "label": "Branding CSS",
-      "category": "advanced",
+      "category": "sonstiges",
       "hilfe": "Optionaler CSS-Code für mandantenspezifisches Branding.",
       "format": {
         "typ": "string",
@@ -182,7 +182,7 @@
     },
     "brandingCSSFile": {
       "label": "Branding CSS Datei",
-      "category": "advanced",
+      "category": "sonstiges",
       "hilfe": "Optionale URL zu einer CSS-Datei für mandantenspezifisches Branding.",
       "format": {
         "typ": "url"
@@ -192,7 +192,7 @@
     },
     "urlDaten": {
       "label": "URL zum Datensatz",
-      "category": "datasource",
+      "category": "datenherkunft",
       "hilfe": "Katalogseite des Brunnen-Datensatzes.",
       "format": {
         "typ": "url"
@@ -203,7 +203,7 @@
     },
     "proxyAktiv": {
       "label": "ODAS-Proxy aktivieren",
-      "category": "datasource",
+      "category": "datenherkunft",
       "hilfe": "Mit ja werden Datenabrufe über den ODAS-Proxy gesendet. Der Proxy ist nur im ODAS-Live-System verfügbar; Entwicklung und Standalone verwenden nein.",
       "default": "nein",
       "format": {
@@ -217,7 +217,7 @@
     },
     "dataSources": {
       "label": "Datenquellen",
-      "category": "datasource",
+      "category": "datenherkunft",
       "hilfe": "JSON-Array mit WFS- oder GeoJSON-Quellen. Jede Quelle benötigt label, type und url.",
       "format": {
         "typ": "markdown"
@@ -246,7 +246,7 @@
     },
     "weiterfuehrendeLinks": {
       "label": "Weiterführende Links",
-      "category": "content",
+      "category": "beschreibung",
       "hilfe": "Verwandte Datensätze / Hintergrundquellen (HTML/Markdown). Leer = ausgeblendet.",
       "default": "<ul><li><a href='https://opendata.stuttgart.de/dataset/brunnen' target='_blank'>Datensatz Brunnen (OpenData Stuttgart)</a></li><li><a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap-Mitwirkende</a></li></ul>",
       "format": {
@@ -256,7 +256,7 @@
     },
     "kpiKontext1": {
       "label": "KPI-Erklärung: Alle Brunnen",
-      "category": "metrics",
+      "category": "beschreibung",
       "hilfe": "Erklärtext unter dem ersten KPI-Wert. Leer = ausgeblendet.",
       "default": "Summe aller im ausgewählten Bereich erfassten Brunnen.",
       "format": {
@@ -266,7 +266,7 @@
     },
     "kpiKontext2": {
       "label": "KPI-Erklärung: Trinkwasser",
-      "category": "metrics",
+      "category": "beschreibung",
       "hilfe": "Erklärtext unter dem zweiten KPI-Wert. Leer = ausgeblendet.",
       "default": "Öffentliche Trinkwasserbrunnen mit Trinkwasserqualität.",
       "format": {
@@ -276,7 +276,7 @@
     },
     "kpiKontext3": {
       "label": "KPI-Erklärung: Mineralwasser",
-      "category": "metrics",
+      "category": "beschreibung",
       "hilfe": "Erklärtext unter dem dritten KPI-Wert. Leer = ausgeblendet.",
       "default": "Mineral- und Heilbrunnen im Betrieb.",
       "format": {
@@ -286,7 +286,7 @@
     },
     "kpiKontext4": {
       "label": "KPI-Erklärung: Sonstige",
-      "category": "metrics",
+      "category": "beschreibung",
       "hilfe": "Erklärtext unter dem vierten KPI-Wert. Leer = ausgeblendet.",
       "default": "Zier- und sonstige Brunnenanlagen.",
       "format": {
@@ -296,7 +296,7 @@
     },
     "datenquelleHinweis": {
       "label": "Methodik / Datenquelle-Hinweis",
-      "category": "content",
+      "category": "beschreibung",
       "hilfe": "Herkunft, Erhebungsmethode und Limitierungen (HTML/Markdown). Leer = ausgeblendet.",
       "default": "<p>Die Standortdaten stammen aus dem WFS-Dienst der Landeshauptstadt Stuttgart (Stuttgarter GeoServer) und umfassen ausschließlich Brunnen, Trinkwasser- und Mineralwasserbrunnen <em>im Betrieb</em>.</p><p>Erhebung und Pflege erfolgen durch die zuständigen städtischen Stellen. Außer Betrieb genommene oder noch nicht erfasste Anlagen sind nicht enthalten; Vollständigkeit und Aktualität hängen vom Pflegestand der Quelle ab.</p>",
       "format": {
@@ -306,7 +306,7 @@
     },
     "datenStand": {
       "label": "Datenstand",
-      "category": "content",
+      "category": "beschreibung",
       "hilfe": "Freitext-Hinweis zum Stand der Daten. Leer = ausgeblendet.",
       "default": "Stand: Direktabruf der WFS-Daten (laufend aktualisiert)",
       "format": {
@@ -316,7 +316,7 @@
     },
     "sprache": {
       "label": "Sprache der App",
-      "category": "general",
+      "category": "allgemein",
       "hilfe": "Angabe der App-Sprache.",
       "default": "de",
       "format": {
