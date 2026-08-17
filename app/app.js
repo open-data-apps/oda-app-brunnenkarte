@@ -29,24 +29,6 @@ const BRUNNEN_TYPE_META = {
   },
 };
 
-const BRUNNEN_DEFAULT_DATA_SOURCES = [
-  {
-    label: "Brunnen in Betrieb",
-    type: "brunnen",
-    url: "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
-  },
-  {
-    label: "Trinkwasserbrunnen im Betrieb",
-    type: "trinkwasser",
-    url: "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
-  },
-  {
-    label: "Mineralwasserbrunnen im Betrieb",
-    type: "mineralwasser",
-    url: "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
-  },
-];
-
 function isOdasProxyEnabled(configdata = {}) {
   return String(configdata.proxyAktiv || "").trim().toLowerCase() === "ja";
 }
@@ -177,6 +159,13 @@ function app(configdata = {}, enclosingHtmlDivElement) {
   };
 
   brunnenInstances.set(enclosingHtmlDivElement, state);
+
+  if (!parseDataSources(configdata.dataSources).length) {
+    enclosingHtmlDivElement.innerHTML =
+      '<div class="alert alert-info" role="alert">Es ist keine Datenquelle konfiguriert.</div>';
+    return null;
+  }
+
   enclosingHtmlDivElement.innerHTML = renderLayout(rootId, configdata, brUid);
   bindUiEvents(enclosingHtmlDivElement, state);
   initializeApp(state);
@@ -497,20 +486,21 @@ async function fetchAllSources(configdata = {}) {
 
 function parseDataSources(value) {
   if (Array.isArray(value)) {
-    const sources = value.map(normalizeSource).filter(Boolean);
-    return sources.length ? sources : cloneDefaultDataSources();
+    return value.map(normalizeSource).filter(Boolean);
   }
 
   if (value && typeof value === "object") {
     const sources = Array.isArray(value.dataSources)
       ? value.dataSources
       : [value];
-    const normalized = sources.map(normalizeSource).filter(Boolean);
-    return normalized.length ? normalized : cloneDefaultDataSources();
+    return sources.map(normalizeSource).filter(Boolean);
   }
 
   if (typeof value === "string" && value.trim()) {
     const cleaned = value.replace(/^_multiline_\s*/i, "").trim();
+    if (/^\{\{.*\}\}$/.test(cleaned) || /^<.*>$/.test(cleaned)) {
+      return [];
+    }
     try {
       const parsed = JSON.parse(cleaned);
       return parseDataSources(parsed);
@@ -527,7 +517,7 @@ function parseDataSources(value) {
     }
   }
 
-  return cloneDefaultDataSources();
+  return [];
 }
 
 function normalizeSource(source) {
@@ -540,10 +530,6 @@ function normalizeSource(source) {
     type: normalizeType(source.type || source.typ || source.label),
     url: String(source.url).trim(),
   };
-}
-
-function cloneDefaultDataSources() {
-  return BRUNNEN_DEFAULT_DATA_SOURCES.map((source) => ({ ...source }));
 }
 
 function parsePayload(text, source) {
