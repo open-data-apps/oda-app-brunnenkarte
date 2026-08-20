@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.23.0 - 2026-08-20
+- Markdown-Metadaten: Paketbeschreibungen auf echtes Markdown umgestellt, exakte Identität Top-Level/Instanz hergestellt, lokale HTML-Fixture semantisch gespiegelt.
+
 ## 1.22.0 - 2026-08-20
 - FIX: `loadErrors` wird jetzt pro Ladevorgang zurückgesetzt statt zu akkumulieren; überlappende `initializeApp()`-Aufrufe erhalten einen Lade-Token (F-70)
 
