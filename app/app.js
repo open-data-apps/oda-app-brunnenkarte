@@ -174,6 +174,7 @@ function app(configdata = {}, enclosingHtmlDivElement) {
     sortField: "name",
     sortDirection: "asc",
     disposed: false,
+    loadToken: 0,
   };
 
   brunnenInstances.set(enclosingHtmlDivElement, state);
@@ -191,13 +192,22 @@ function app(configdata = {}, enclosingHtmlDivElement) {
 }
 
 async function initializeApp(state) {
+  // Monotoner Lade-Token (F-70): jeder Aufruf (initialer Load, "Aktualisieren"-Klick)
+  // erhoeht den Token und vergleicht ihn nach dem Warten auf async Arbeit erneut mit
+  // state.loadToken. Ueberholte, noch laufende Aufrufe erkennen so, dass ein neuerer
+  // Aufruf inzwischen gestartet wurde, und verwerfen ihr (jetzt veraltetes) Ergebnis
+  // still, statt es ueber den zwischenzeitlich aktuellen Stand zu schreiben.
+  const token = ++state.loadToken;
+  state.loadErrors = [];
   setBusy(state, true, "Datenquellen und Kartenbibliotheken werden geladen...");
 
   const leafletTask = loadLeaflet()
     .then(() => {
+      if (state.loadToken !== token) return;
       state.leafletReady = true;
     })
     .catch((error) => {
+      if (state.loadToken !== token) return;
       state.loadErrors.push({
         label: "Leaflet",
         message: error.message,
@@ -207,7 +217,7 @@ async function initializeApp(state) {
   const dataTask = fetchAllSources(state.config);
   const [dataResult] = await Promise.all([dataTask, leafletTask]);
 
-  if (state.disposed) return;
+  if (state.disposed || state.loadToken !== token) return;
 
   state.allRecords = dataResult.records;
   state.loadErrors.push(...dataResult.errors);

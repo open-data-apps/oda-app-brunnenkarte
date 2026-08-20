@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.22.0 - 2026-08-20
+- FIX: `loadErrors` wird jetzt pro Ladevorgang zurückgesetzt statt zu akkumulieren; überlappende `initializeApp()`-Aufrufe erhalten einen Lade-Token (F-70)
+
 ## 1.21.0 - 2026-08-17
 - `fetchOdasJson()` wirft jetzt bei nicht-JSON-Antworten (CSV, HTML, leerer Body) eine sprechende Konfigurationsfehlermeldung statt der rohen `JSON.parse`-Parserfehlermeldung (F-66)
 
