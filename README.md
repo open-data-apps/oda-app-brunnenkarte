@@ -43,7 +43,7 @@ Wichtige Parameter:
 
 | Parameter | Beschreibung |
 | --- | --- |
-| `dataSources` | Array oder JSON-String mit Objekten aus `label`, `type` und `url` |
+| `apiurls` | URLs zu Datenressourcen (Array, drei Einträge, alle Pflicht): `brunnen`, `trinkwasser`, `mineralwasser` — je Eintrag `name`, `label` und `url` |
 | `urlDaten` | Katalogseite des Datensatzes |
 | `titel` | Sichtbarer App-Titel |
 | `seitentitel` | Titel im Browser-Tab |

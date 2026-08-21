@@ -179,7 +179,7 @@ function app(configdata = {}, enclosingHtmlDivElement) {
 
   brunnenInstances.set(enclosingHtmlDivElement, state);
 
-  if (!parseDataSources(configdata.dataSources).length) {
+  if (!parseDataSources(configdata.apiurls).length) {
     enclosingHtmlDivElement.innerHTML =
       '<div class="alert alert-info" role="alert">Es ist keine Datenquelle konfiguriert.</div>';
     return null;
@@ -439,7 +439,7 @@ function bindUiEvents(container, state) {
 }
 
 async function fetchAllSources(configdata = {}) {
-  const sources = parseDataSources(configdata.dataSources);
+  const sources = parseDataSources(configdata.apiurls);
   const results = await Promise.all(
     sources.map(async (source) => {
       try {
@@ -512,40 +512,15 @@ async function fetchAllSources(configdata = {}) {
   };
 }
 
+/**
+ * configdata.apiurls ist das Array-Feld (typ: "array") mit den drei
+ * Brunnenkategorien. Jeder Eintrag ist bereits ein sauberes Objekt
+ * { name, label, url } - keine JSON-String- oder Legacy-Objekt-Faelle
+ * mehr zu behandeln (das fruehere dataSources-Markdown-Array ist entfallen).
+ */
 function parseDataSources(value) {
-  if (Array.isArray(value)) {
-    return value.map(normalizeSource).filter(Boolean);
-  }
-
-  if (value && typeof value === "object") {
-    const sources = Array.isArray(value.dataSources)
-      ? value.dataSources
-      : [value];
-    return sources.map(normalizeSource).filter(Boolean);
-  }
-
-  if (typeof value === "string" && value.trim()) {
-    const cleaned = value.replace(/^_multiline_\s*/i, "").trim();
-    if (/^\{\{.*\}\}$/.test(cleaned) || /^<.*>$/.test(cleaned)) {
-      return [];
-    }
-    try {
-      const parsed = JSON.parse(cleaned);
-      return parseDataSources(parsed);
-    } catch (error) {
-      if (/^https?:\/\//i.test(cleaned)) {
-        return [
-          normalizeSource({
-            label: "Konfigurierte Datenquelle",
-            type: "brunnen",
-            url: cleaned,
-          }),
-        ];
-      }
-    }
-  }
-
-  return [];
+  const liste = Array.isArray(value) ? value : [];
+  return liste.map(normalizeSource).filter(Boolean);
 }
 
 function normalizeSource(source) {
@@ -555,7 +530,7 @@ function normalizeSource(source) {
 
   return {
     label: String(source.label || source.name || "Datenquelle").trim(),
-    type: normalizeType(source.type || source.typ || source.label),
+    type: normalizeType(source.type || source.typ || source.name || source.label),
     url: String(source.url).trim(),
   };
 }

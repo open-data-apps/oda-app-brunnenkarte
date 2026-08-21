@@ -55,20 +55,20 @@
   "brandingCSS": "",
   "brandingCSSFile": "",
   "urlDaten": "https://opendata.stuttgart.de/dataset/brunnen",
-  "dataSources": [
+  "apiurls": [
     {
+      "name": "brunnen",
       "label": "Brunnen in Betrieb",
-      "type": "brunnen",
       "url": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326"
     },
     {
+      "name": "trinkwasser",
       "label": "Trinkwasserbrunnen im Betrieb",
-      "type": "trinkwasser",
       "url": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326"
     },
     {
+      "name": "mineralwasser",
       "label": "Mineralwasserbrunnen im Betrieb",
-      "type": "mineralwasser",
       "url": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326"
     }
   ],

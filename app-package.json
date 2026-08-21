@@ -3,7 +3,7 @@
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "brunnenkarte",
   "name": "Brunnenkarte",
-  "version": "1.23.0",
+  "version": "1.24.0",
   "odas-app-icon": "assets/odas-app-icon.svg",
   "app-icon": "assets/odas-app-icon.svg",
   "kurzbeschreibung": "Interaktive Karten- und Analyse-App für Brunnenstandorte in Stuttgart.",
@@ -263,34 +263,38 @@
       },
       "erforderlich": "ja"
     },
-    "dataSources": {
-      "label": "Datenquellen",
+    "apiurls": {
+      "label": "URLs zu Datenressourcen",
       "category": "datenherkunft",
-      "hilfe": "JSON-Array mit WFS- oder GeoJSON-Quellen. Jede Quelle benötigt label, type und url.",
+      "hilfe": "Direkter Download-, Datei- oder API-Endpunkt der tatsächlich verwendeten Datenquelle(n). Mehrere Einträge möglich.",
+      "typ": "array",
       "format": {
-        "typ": "markdown"
+        "typ": "url",
+        "laenge": 500
       },
-      "default": [
-        "_multiline_",
-        "[",
-        "  {",
-        "    \"label\": \"Brunnen in Betrieb\",",
-        "    \"type\": \"brunnen\",",
-        "    \"url\": \"https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326\"",
-        "  },",
-        "  {",
-        "    \"label\": \"Trinkwasserbrunnen im Betrieb\",",
-        "    \"type\": \"trinkwasser\",",
-        "    \"url\": \"https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326\"",
-        "  },",
-        "  {",
-        "    \"label\": \"Mineralwasserbrunnen im Betrieb\",",
-        "    \"type\": \"mineralwasser\",",
-        "    \"url\": \"https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326\"",
-        "  }",
-        "]"
-      ],
-      "erforderlich": "ja"
+      "urls": [
+        {
+          "name": "brunnen",
+          "label": "Brunnen in Betrieb",
+          "default": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+          "beispiel": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+          "erforderlich": "ja"
+        },
+        {
+          "name": "trinkwasser",
+          "label": "Trinkwasserbrunnen im Betrieb",
+          "default": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+          "beispiel": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+          "erforderlich": "ja"
+        },
+        {
+          "name": "mineralwasser",
+          "label": "Mineralwasserbrunnen im Betrieb",
+          "default": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+          "beispiel": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+          "erforderlich": "ja"
+        }
+      ]
     },
     "weiterfuehrendeLinks": {
       "label": "Weiterführende Links",

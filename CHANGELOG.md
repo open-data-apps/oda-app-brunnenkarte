@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.24.0 - 2026-08-21
+- **CHG:** Das als `typ: "markdown"` deklarierte `dataSources`-Feld (JSON-Array als `_multiline_`-Text kodiert) durch das echte Array-Feld `apiurls` ersetzt (`typ: "array"`, Einträge `brunnen`, `trinkwasser`, `mineralwasser`). Behebt den Typkonflikt zwischen Paket-Deklaration (Markdown-String) und Laufzeitwert (JSON-Array); `parseDataSources()` in `app.js` vereinfacht, da `apiurls` immer ein sauberes Array liefert.
+
 ## 1.23.0 - 2026-08-20
 - Markdown-Metadaten: Paketbeschreibungen auf echtes Markdown umgestellt, exakte Identität Top-Level/Instanz hergestellt, lokale HTML-Fixture semantisch gespiegelt.
 
