@@ -6,8 +6,6 @@ let brInstanzZaehler = 0;
 // zur App passende Muster (schulwegsicherheit-Portfoliomuster).
 const brunnenInstances = new Map();
 
-const BRUNNEN_APP_VERSION = "1.0.0";
-
 const BRUNNEN_TYPE_META = {
   brunnen: {
     label: "Brunnen",
@@ -1218,7 +1216,7 @@ function updateStatus(state) {
     .join(" | ");
   const summary = loaded || "Keine Daten geladen";
   getRoot(state).querySelector(`#${state.rootId}-status`).textContent =
-    `${summary} | App-Version ${BRUNNEN_APP_VERSION}`;
+    `${summary}`;
 }
 
 function setBusy(state, busy, text = "") {

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.26.0 - 2026-08-22
+- **FIX:** Hartcodierte `BRUNNEN_APP_VERSION` samt Anzeige in der Statuszeile entfernt; die Paketversion ist alleinige Quelle (Laufzeit lädt `app-package.json` nicht).
+- **CHG:** Umlaut-Schlüssel in den `format`-Angaben zu `laenge`/`hoehe` umbenannt (portfolioweiter Standard).
+
 ## 1.25.0 - 2026-08-22
 - **CHG:** `version` in `app-package.json` zu `app-version` umbenannt.
 - **ENH:** Top-Level-Feld `app-package-version` ergänzt (Wert `"2"`: mehrere benannte API-URLs über `instanz-config.apiurls`).

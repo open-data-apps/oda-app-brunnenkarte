@@ -3,7 +3,7 @@
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "brunnenkarte",
   "name": "Brunnenkarte",
-  "app-version": "1.25.0",
+  "app-version": "1.26.0",
   "app-package-version": "2",
   "odas-app-icon": "assets/odas-app-icon.svg",
   "app-icon": "assets/odas-app-icon.svg",
@@ -79,7 +79,7 @@
       "default": "Brunnenkarte",
       "format": {
         "typ": "string",
-        "länge": 80
+        "laenge": 80
       },
       "erforderlich": "ja"
     },
@@ -90,7 +90,7 @@
       "default": "Brunnenkarte",
       "format": {
         "typ": "string",
-        "länge": 80
+        "laenge": 80
       },
       "erforderlich": "ja"
     },
@@ -101,7 +101,7 @@
       "default": "logo_ondics.png",
       "format": {
         "typ": "image",
-        "höhe": 100,
+        "hoehe": 100,
         "breite": 300
       },
       "erforderlich": "ja"
@@ -213,7 +213,7 @@
       "hilfe": "Wird unten in der App angezeigt.",
       "format": {
         "typ": "string",
-        "länge": 180
+        "laenge": 180
       },
       "default": "(C) Copyright {{jahr}} | App & Daten: {{odp.anbieter.name}} | App-Entwickler: {{app.developer.name}} | ODAS: {{odas.betreiber.name}}",
       "erforderlich": "ja"
@@ -224,7 +224,7 @@
       "hilfe": "Optionaler CSS-Code für mandantenspezifisches Branding.",
       "format": {
         "typ": "string",
-        "länge": 2000
+        "laenge": 2000
       },
       "default": "",
       "erforderlich": "nein"
