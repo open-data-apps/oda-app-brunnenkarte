@@ -1,119 +1,14 @@
 {
-  "app-entwickler-id": "12343",
-  "app-entwickler-name": "ondics-gmbh",
-  "name-in-url": "brunnenkarte",
-  "name": "Brunnenkarte",
-  "app-version": "1.27.0",
-  "app-package-version": "2",
-  "odas-app-icon": "assets/odas-app-icon.svg",
-  "app-icon": "assets/odas-app-icon.svg",
-  "kurzbeschreibung": "Interaktive Karten- und Analyse-App für Brunnenstandorte in Stuttgart.",
-  "beschreibung": [
-    "_multiline_",
-    "Die Brunnenkarte zeigt Brunnenstandorte in Stuttgart auf einer interaktiven Karte und macht Trinkwasserbrunnen, Mineralwasserbrunnen und weitere Brunnenarten leicht auffindbar.",
-    "",
-    "Die App nutzt offene Geodaten aus dem Open-Data-Angebot der Landeshauptstadt Stuttgart und bereitet sie mit Karten-, Filter- und Detailfunktionen auf.",
-    "",
-    "## Methodik",
-    "",
-    "Die App ruft die konfigurierten WFS-/GeoJSON-Quellen für Brunnen im Betrieb direkt ab – im Live-Betrieb optional über den ODAS-Proxy – und normalisiert die Antworten im Browser.",
-    "",
-    "Sie filtert und bildet ausschließlich betriebsbereite Brunnen ab: nach Brunnenart, Bezirk, Datenquelle und Kartenausschnitt, mit Suche und Dublettenbereinigung. Standortpunkte, Kategorien und Kennzahlen werden aus den gelieferten GeoJSON-Features abgeleitet und auf der Karte sowie in Tabelle und Verteilung dargestellt.",
-    "",
-    "Welche Attribute (z. B. Bezirk, Betreiber, Status) tatsächlich vorhanden sind, hängt vom jeweiligen Datensatz ab.",
-    "",
-    "## Datenquelle",
-    "",
-    "Die Standortdaten stammen aus dem Open-Data-Angebot der Landeshauptstadt Stuttgart und werden über den städtischen GeoServer als WFS bereitgestellt.",
-    "",
-    "- **Open Data Portal:** [Open Data Stuttgart](https://opendata.stuttgart.de)",
-    "- **Datensatz:** [Brunnen](https://opendata.stuttgart.de/dataset/brunnen)",
-    "- **Beispiel-Ressourcen/API-Endpunkte:**",
-    "  - [Brunnen in Betrieb](https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326)",
-    "  - [Trinkwasserbrunnen im Betrieb](https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326)",
-    "  - [Mineralwasserbrunnen im Betrieb](https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326)",
-    "",
-    "Angezeigt werden die in den Quellen vorhandenen Brunnen im Betrieb; Verfügbarkeit und Aktualität hängen vom Pflegestand der Quellen ab.",
-    "",
-    "## Open Data App",
-    "",
-    "Diese App ist eine Open Data App und kann im [Open Data App Store](https://open-data-app-store.de/) betrieben werden. Sie ist Open Source und lässt sich mit kommunalen Brunnen- oder vergleichbaren Standortdaten konfigurieren.",
-    "",
-    "- [Open Data App Store](https://open-data-app-store.de/) – die Plattform für Open Data Apps",
-    "- [Alle Open Data Apps auf GitHub](https://github.com/open-data-apps) – die Organisation mit allen Apps",
-    "- [oda-app-brunnenkarte](https://github.com/open-data-apps/oda-app-brunnenkarte) – das Repository dieser App"
-  ],
-  "tags-funktion": [
-    "Karte",
-    "Kennzahlen",
-    "Filter",
-    "Tabelle"
-  ],
-  "tags-dateityp": [
-    "WFS",
-    "GeoJSON"
-  ],
-  "tags-datenart": [
-    "Geodaten",
-    "Infrastruktur",
-    "Umwelt",
-    "Gesundheit"
-  ],
-  "screenshots": [
-    "assets/Desktop_Screenshot.png",
-    "assets/Mobile_Screenshot.png"
-  ],
-  "daten": {
-    "beschreibung": "WFS/GeoJSON-Daten zu Brunnen, Trinkwasserbrunnen und Mineralwasserbrunnen in Stuttgart.",
-    "schema": "assets/schema.json",
-    "beispiel": "Brunnen in Betrieb",
-    "beispiel-url": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326"
-  },
-  "branding-css": "",
-  "api-version": "1",
-  "instanz-config": {
-    "seitentitel": {
-      "label": "Seitentitel",
-      "category": "allgemein",
-      "hilfe": "Der Seitentitel wird im Browser-Tab der App angezeigt.",
-      "default": "Brunnenkarte",
-      "format": {
-        "typ": "string",
-        "laenge": 80
-      },
-      "erforderlich": "ja"
-    },
-    "titel": {
-      "label": "Titel",
-      "category": "allgemein",
-      "hilfe": "Der Titel wird in der Titelzeile der App angezeigt.",
-      "default": "Brunnenkarte",
-      "format": {
-        "typ": "string",
-        "laenge": 80
-      },
-      "erforderlich": "ja"
-    },
-    "icon": {
-      "label": "App-Icon",
-      "category": "allgemein",
-      "hilfe": "Das Icon wird links oben in der Titelzeile angezeigt.",
-      "default": "logo_ondics.png",
-      "format": {
-        "typ": "image",
-        "hoehe": 100,
-        "breite": 300
-      },
-      "erforderlich": "ja"
-    },
-    "beschreibung": {
-      "label": "Beschreibung",
-      "category": "beschreibung",
-      "hilfe": "Der Text wird im Menüpunkt 'Über diese App' angezeigt.",
-      "format": {
-        "typ": "markdown"
-      },
-      "default": [
+    "app-entwickler-id": "12343",
+    "app-entwickler-name": "ondics-gmbh",
+    "name-in-url": "brunnenkarte",
+    "name": "Brunnenkarte",
+    "app-version": "1.27.0",
+    "app-package-version": "2",
+    "odas-app-icon": "assets/odas-app-icon.svg",
+    "app-icon": "assets/odas-app-icon.svg",
+    "kurzbeschreibung": "Interaktive Karten- und Analyse-App für Brunnenstandorte in Stuttgart.",
+    "beschreibung": [
         "_multiline_",
         "Die Brunnenkarte zeigt Brunnenstandorte in Stuttgart auf einer interaktiven Karte und macht Trinkwasserbrunnen, Mineralwasserbrunnen und weitere Brunnenarten leicht auffindbar.",
         "",
@@ -132,11 +27,11 @@
         "Die Standortdaten stammen aus dem Open-Data-Angebot der Landeshauptstadt Stuttgart und werden über den städtischen GeoServer als WFS bereitgestellt.",
         "",
         "- **Open Data Portal:** [Open Data Stuttgart](https://opendata.stuttgart.de)",
-        "- **Datensatz:** [Brunnen](https://opendata.stuttgart.de/dataset/brunnen)",
+        "- **Datensatz:** [Brunnen]({{{appinstanz.urlDaten}}})",
         "- **Beispiel-Ressourcen/API-Endpunkte:**",
-        "  - [Brunnen in Betrieb](https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326)",
-        "  - [Trinkwasserbrunnen im Betrieb](https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326)",
-        "  - [Mineralwasserbrunnen im Betrieb](https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326)",
+        "  - [Brunnen in Betrieb]({{{appinstanz.apiurls.1}}})",
+        "  - [Trinkwasserbrunnen im Betrieb]({{{appinstanz.apiurls.2}}})",
+        "  - [Mineralwasserbrunnen im Betrieb]({{{appinstanz.apiurls.3}}})",
         "",
         "Angezeigt werden die in den Quellen vorhandenen Brunnen im Betrieb; Verfügbarkeit und Aktualität hängen vom Pflegestand der Quellen ab.",
         "",
@@ -147,238 +42,343 @@
         "- [Open Data App Store](https://open-data-app-store.de/) – die Plattform für Open Data Apps",
         "- [Alle Open Data Apps auf GitHub](https://github.com/open-data-apps) – die Organisation mit allen Apps",
         "- [oda-app-brunnenkarte](https://github.com/open-data-apps/oda-app-brunnenkarte) – das Repository dieser App"
-      ],
-      "erforderlich": "ja"
+    ],
+    "tags-funktion": [
+        "Karte",
+        "Kennzahlen",
+        "Filter",
+        "Tabelle"
+    ],
+    "tags-dateityp": [
+        "WFS",
+        "GeoJSON"
+    ],
+    "tags-datenart": [
+        "Geodaten",
+        "Infrastruktur",
+        "Umwelt",
+        "Gesundheit"
+    ],
+    "screenshots": [
+        "assets/Desktop_Screenshot.png",
+        "assets/Mobile_Screenshot.png"
+    ],
+    "daten": {
+        "beschreibung": "WFS/GeoJSON-Daten zu Brunnen, Trinkwasserbrunnen und Mineralwasserbrunnen in Stuttgart.",
+        "schema": "assets/schema.json",
+        "beispiel": "Brunnen in Betrieb",
+        "beispiel-url": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326"
     },
-    "kontakt": {
-      "label": "Kontakt",
-      "category": "kontakt-rechtliches",
-      "hilfe": "Der Text wird im Menüpunkt 'Kontakt' angezeigt.",
-      "format": {
-        "typ": "markdown"
-      },
-      "default": [
-        "_multiline_",
-        "Hinweise zur App oder zu den dargestellten Daten können an den jeweiligen App-Anbieter gerichtet werden."
-      ],
-      "erforderlich": "ja"
-    },
-    "impressum": {
-      "label": "Impressum",
-      "category": "kontakt-rechtliches",
-      "hilfe": "Der Text wird im Menüpunkt 'Impressum' angezeigt.",
-      "format": {
-        "typ": "markdown"
-      },
-      "default": [
-        "_multiline_",
-        "## Anbieter",
-        "",
-        "{{{odp.anbieter.orgName}}}  ",
-        "{{{odp.anbieter.orgUnit}}}",
-        "",
-        "{{odp.anbieter.strasse}}  ",
-        "{{odp.anbieter.plzort}}",
-        "",
-        "Website: [{{odp.anbieter.url}}]({{odp.anbieter.url}})"
-      ],
-      "erforderlich": "ja"
-    },
-    "datenschutz": {
-      "label": "Datenschutz",
-      "category": "kontakt-rechtliches",
-      "hilfe": "Der Text wird im Menüpunkt 'Datenschutz' angezeigt.",
-      "format": {
-        "typ": "markdown"
-      },
-      "default": [
-        "_multiline_",
-        "Diese App verarbeitet im Browser offene Standortdaten und setzt keine eigenen Tracking-Mechanismen ein.",
-        "",
-        "Alle für die Darstellung benötigten Programmbibliotheken werden mit der App ausgeliefert. Beim Aufruf werden dafür keine externen Server kontaktiert.",
-        "",
-        "Die angezeigten Daten werden vom Browser direkt aus der konfigurierten Datenquelle geladen. Dabei werden technisch bedingt IP-Adresse und Browserkennung an deren Betreiber übermittelt. Maßgeblich ist der Schalter `proxyAktiv` der Instanz-Konfiguration.",
-        "",
-        "## Beim Aufruf kontaktierte Drittanbieter",
-        "",
-        "Folgende externe Server werden kontaktiert. Dabei werden IP-Adresse und User-Agent der Besucher:innen an diese Anbieter übertragen:",
-        "",
-        "- **tile.openstreetmap.org** — Kartenkacheln (OpenStreetMap)"
-      ],
-      "erforderlich": "ja"
-    },
-    "fusszeile": {
-      "label": "Fußzeile",
-      "category": "kontakt-rechtliches",
-      "hilfe": "Wird unten in der App angezeigt.",
-      "format": {
-        "typ": "string",
-        "laenge": 180
-      },
-      "default": "(C) Copyright {{jahr}} | App & Daten: {{odp.anbieter.name}} | App-Entwickler: {{app.developer.name}} | ODAS: {{odas.betreiber.name}}",
-      "erforderlich": "ja"
-    },
-    "brandingCSS": {
-      "label": "Branding CSS",
-      "category": "sonstiges",
-      "hilfe": "Optionaler CSS-Code für mandantenspezifisches Branding.",
-      "format": {
-        "typ": "string",
-        "laenge": 2000
-      },
-      "default": "",
-      "erforderlich": "nein"
-    },
-    "brandingCSSFile": {
-      "label": "Branding CSS Datei",
-      "category": "sonstiges",
-      "hilfe": "Optionale URL zu einer CSS-Datei für mandantenspezifisches Branding.",
-      "format": {
-        "typ": "url"
-      },
-      "default": "",
-      "erforderlich": "nein"
-    },
-    "urlDaten": {
-      "label": "URL zum Datensatz",
-      "category": "datenherkunft",
-      "hilfe": "Katalogseite des Brunnen-Datensatzes.",
-      "format": {
-        "typ": "url"
-      },
-      "default": "https://opendata.stuttgart.de/dataset/brunnen",
-      "beispiel": "https://opendata.stuttgart.de/dataset/brunnen",
-      "erforderlich": "ja"
-    },
-    "proxyAktiv": {
-      "label": "ODAS-Proxy aktivieren",
-      "category": "datenherkunft",
-      "hilfe": "Mit ja werden Datenabrufe über den ODAS-Proxy gesendet. Der Proxy ist nur im ODAS-Live-System verfügbar; Entwicklung und Standalone verwenden nein.",
-      "default": "nein",
-      "format": {
-        "typ": "dropdown",
-        "optionen": [
-          "nein",
-          "ja"
-        ]
-      },
-      "erforderlich": "ja"
-    },
-    "apiurls": {
-      "label": "URLs zu Datenressourcen",
-      "category": "datenherkunft",
-      "hilfe": "Direkter Download-, Datei- oder API-Endpunkt der tatsächlich verwendeten Datenquelle(n). Mehrere Einträge möglich.",
-      "typ": "array",
-      "format": {
-        "typ": "url",
-        "laenge": 500
-      },
-      "urls": [
-        {
-          "name": "brunnen",
-          "label": "Brunnen in Betrieb",
-          "default": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
-          "beispiel": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
-          "erforderlich": "ja"
+    "branding-css": "",
+    "api-version": "1",
+    "instanz-config": {
+        "seitentitel": {
+            "label": "Seitentitel",
+            "category": "allgemein",
+            "hilfe": "Der Seitentitel wird im Browser-Tab der App angezeigt.",
+            "default": "Brunnenkarte",
+            "format": {
+                "typ": "string",
+                "laenge": 80
+            },
+            "erforderlich": "ja"
         },
-        {
-          "name": "trinkwasser",
-          "label": "Trinkwasserbrunnen im Betrieb",
-          "default": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
-          "beispiel": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
-          "erforderlich": "ja"
+        "titel": {
+            "label": "Titel",
+            "category": "allgemein",
+            "hilfe": "Der Titel wird in der Titelzeile der App angezeigt.",
+            "default": "Brunnenkarte",
+            "format": {
+                "typ": "string",
+                "laenge": 80
+            },
+            "erforderlich": "ja"
         },
-        {
-          "name": "mineralwasser",
-          "label": "Mineralwasserbrunnen im Betrieb",
-          "default": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
-          "beispiel": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
-          "erforderlich": "ja"
+        "icon": {
+            "label": "App-Icon",
+            "category": "allgemein",
+            "hilfe": "Das Icon wird links oben in der Titelzeile angezeigt.",
+            "default": "logo_ondics.png",
+            "format": {
+                "typ": "image",
+                "hoehe": 100,
+                "breite": 300
+            },
+            "erforderlich": "ja"
+        },
+        "beschreibung": {
+            "label": "Beschreibung",
+            "category": "beschreibung",
+            "hilfe": "Der Text wird im Menüpunkt 'Über diese App' angezeigt.",
+            "format": {
+                "typ": "markdown"
+            },
+            "default": [
+                "_multiline_",
+                "Die Brunnenkarte zeigt Brunnenstandorte in Stuttgart auf einer interaktiven Karte und macht Trinkwasserbrunnen, Mineralwasserbrunnen und weitere Brunnenarten leicht auffindbar.",
+                "",
+                "Die App nutzt offene Geodaten aus dem Open-Data-Angebot der Landeshauptstadt Stuttgart und bereitet sie mit Karten-, Filter- und Detailfunktionen auf.",
+                "",
+                "## Methodik",
+                "",
+                "Die App ruft die konfigurierten WFS-/GeoJSON-Quellen für Brunnen im Betrieb direkt ab – im Live-Betrieb optional über den ODAS-Proxy – und normalisiert die Antworten im Browser.",
+                "",
+                "Sie filtert und bildet ausschließlich betriebsbereite Brunnen ab: nach Brunnenart, Bezirk, Datenquelle und Kartenausschnitt, mit Suche und Dublettenbereinigung. Standortpunkte, Kategorien und Kennzahlen werden aus den gelieferten GeoJSON-Features abgeleitet und auf der Karte sowie in Tabelle und Verteilung dargestellt.",
+                "",
+                "Welche Attribute (z. B. Bezirk, Betreiber, Status) tatsächlich vorhanden sind, hängt vom jeweiligen Datensatz ab.",
+                "",
+                "## Datenquelle",
+                "",
+                "Die Standortdaten stammen aus dem Open-Data-Angebot der Landeshauptstadt Stuttgart und werden über den städtischen GeoServer als WFS bereitgestellt.",
+                "",
+                "- **Open Data Portal:** [Open Data Stuttgart](https://opendata.stuttgart.de)",
+                "- **Datensatz:** [Brunnen]({{{appinstanz.urlDaten}}})",
+                "- **Beispiel-Ressourcen/API-Endpunkte:**",
+                "  - [Brunnen in Betrieb]({{{appinstanz.apiurls.1}}})",
+                "  - [Trinkwasserbrunnen im Betrieb]({{{appinstanz.apiurls.2}}})",
+                "  - [Mineralwasserbrunnen im Betrieb]({{{appinstanz.apiurls.3}}})",
+                "",
+                "Angezeigt werden die in den Quellen vorhandenen Brunnen im Betrieb; Verfügbarkeit und Aktualität hängen vom Pflegestand der Quellen ab.",
+                "",
+                "## Open Data App",
+                "",
+                "Diese App ist eine Open Data App und kann im [Open Data App Store](https://open-data-app-store.de/) betrieben werden. Sie ist Open Source und lässt sich mit kommunalen Brunnen- oder vergleichbaren Standortdaten konfigurieren.",
+                "",
+                "- [Open Data App Store](https://open-data-app-store.de/) – die Plattform für Open Data Apps",
+                "- [Alle Open Data Apps auf GitHub](https://github.com/open-data-apps) – die Organisation mit allen Apps",
+                "- [oda-app-brunnenkarte](https://github.com/open-data-apps/oda-app-brunnenkarte) – das Repository dieser App"
+            ],
+            "erforderlich": "ja"
+        },
+        "kontakt": {
+            "label": "Kontakt",
+            "category": "kontakt-rechtliches",
+            "hilfe": "Der Text wird im Menüpunkt 'Kontakt' angezeigt.",
+            "format": {
+                "typ": "markdown"
+            },
+            "default": [
+                "_multiline_",
+                "Hinweise zur App oder zu den dargestellten Daten können an den jeweiligen App-Anbieter gerichtet werden."
+            ],
+            "erforderlich": "ja"
+        },
+        "impressum": {
+            "label": "Impressum",
+            "category": "kontakt-rechtliches",
+            "hilfe": "Der Text wird im Menüpunkt 'Impressum' angezeigt.",
+            "format": {
+                "typ": "markdown"
+            },
+            "default": [
+                "_multiline_",
+                "## Anbieter",
+                "",
+                "{{{odp.anbieter.orgName}}}  ",
+                "{{{odp.anbieter.orgUnit}}}",
+                "",
+                "{{odp.anbieter.strasse}}  ",
+                "{{odp.anbieter.plzort}}",
+                "",
+                "Website: [{{odp.anbieter.url}}]({{odp.anbieter.url}})"
+            ],
+            "erforderlich": "ja"
+        },
+        "datenschutz": {
+            "label": "Datenschutz",
+            "category": "kontakt-rechtliches",
+            "hilfe": "Der Text wird im Menüpunkt 'Datenschutz' angezeigt.",
+            "format": {
+                "typ": "markdown"
+            },
+            "default": [
+                "_multiline_",
+                "Diese App verarbeitet im Browser offene Standortdaten und setzt keine eigenen Tracking-Mechanismen ein.",
+                "",
+                "Alle für die Darstellung benötigten Programmbibliotheken werden mit der App ausgeliefert. Beim Aufruf werden dafür keine externen Server kontaktiert.",
+                "",
+                "Die angezeigten Daten werden vom Browser direkt aus der konfigurierten Datenquelle geladen. Dabei werden technisch bedingt IP-Adresse und Browserkennung an deren Betreiber übermittelt. Maßgeblich ist der Schalter `proxyAktiv` der Instanz-Konfiguration.",
+                "",
+                "## Beim Aufruf kontaktierte Drittanbieter",
+                "",
+                "Folgende externe Server werden kontaktiert. Dabei werden IP-Adresse und User-Agent der Besucher:innen an diese Anbieter übertragen:",
+                "",
+                "- **tile.openstreetmap.org** — Kartenkacheln (OpenStreetMap)"
+            ],
+            "erforderlich": "ja"
+        },
+        "fusszeile": {
+            "label": "Fußzeile",
+            "category": "kontakt-rechtliches",
+            "hilfe": "Wird unten in der App angezeigt.",
+            "format": {
+                "typ": "string",
+                "laenge": 180
+            },
+            "default": "(C) Copyright {{jahr}} | App & Daten: {{odp.anbieter.name}} | App-Entwickler: {{app.developer.name}} | ODAS: {{odas.betreiber.name}}",
+            "erforderlich": "ja"
+        },
+        "brandingCSS": {
+            "label": "Branding CSS",
+            "category": "sonstiges",
+            "hilfe": "Optionaler CSS-Code für mandantenspezifisches Branding.",
+            "format": {
+                "typ": "string",
+                "laenge": 2000
+            },
+            "default": "",
+            "erforderlich": "nein"
+        },
+        "brandingCSSFile": {
+            "label": "Branding CSS Datei",
+            "category": "sonstiges",
+            "hilfe": "Optionale URL zu einer CSS-Datei für mandantenspezifisches Branding.",
+            "format": {
+                "typ": "url"
+            },
+            "default": "",
+            "erforderlich": "nein"
+        },
+        "urlDaten": {
+            "label": "URL zum Datensatz",
+            "category": "datenherkunft",
+            "hilfe": "Katalogseite des Brunnen-Datensatzes.",
+            "format": {
+                "typ": "url"
+            },
+            "default": "https://opendata.stuttgart.de/dataset/brunnen",
+            "beispiel": "https://opendata.stuttgart.de/dataset/brunnen",
+            "erforderlich": "ja"
+        },
+        "proxyAktiv": {
+            "label": "ODAS-Proxy aktivieren",
+            "category": "datenherkunft",
+            "hilfe": "Mit ja werden Datenabrufe über den ODAS-Proxy gesendet. Der Proxy ist nur im ODAS-Live-System verfügbar; Entwicklung und Standalone verwenden nein.",
+            "default": "nein",
+            "format": {
+                "typ": "dropdown",
+                "optionen": [
+                    "nein",
+                    "ja"
+                ]
+            },
+            "erforderlich": "ja"
+        },
+        "apiurls": {
+            "label": "URLs zu Datenressourcen",
+            "category": "datenherkunft",
+            "hilfe": "Direkter Download-, Datei- oder API-Endpunkt der tatsächlich verwendeten Datenquelle(n). Mehrere Einträge möglich.",
+            "typ": "array",
+            "format": {
+                "typ": "url",
+                "laenge": 500
+            },
+            "urls": [
+                {
+                    "name": "brunnen",
+                    "label": "Brunnen in Betrieb",
+                    "default": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+                    "beispiel": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Brunnen_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+                    "erforderlich": "ja"
+                },
+                {
+                    "name": "trinkwasser",
+                    "label": "Trinkwasserbrunnen im Betrieb",
+                    "default": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+                    "beispiel": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Trinkwasserbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+                    "erforderlich": "ja"
+                },
+                {
+                    "name": "mineralwasser",
+                    "label": "Mineralwasserbrunnen im Betrieb",
+                    "default": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+                    "beispiel": "https://geoserver.stuttgart.de/gdc/Natur_Umwelt/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=Natur_Umwelt:A62_BRU_BRUNNEN_Mineralbr_in_Betr_EPSG25832&outputFormat=application/json&srsName=EPSG:4326",
+                    "erforderlich": "ja"
+                }
+            ]
+        },
+        "weiterfuehrendeLinks": {
+            "label": "Weiterführende Links",
+            "category": "beschreibung",
+            "hilfe": "Verwandte Datensätze / Hintergrundquellen (HTML/Markdown). Leer = ausgeblendet.",
+            "default": "- [Datensatz Brunnen (OpenData Stuttgart)](https://opendata.stuttgart.de/dataset/brunnen)\n- [OpenStreetMap-Mitwirkende](https://www.openstreetmap.org/copyright)",
+            "format": {
+                "typ": "markdown"
+            },
+            "erforderlich": "nein"
+        },
+        "kpiKontext1": {
+            "label": "KPI-Erklärung: Alle Brunnen",
+            "category": "beschreibung",
+            "hilfe": "Erklärtext unter dem ersten KPI-Wert. Leer = ausgeblendet.",
+            "default": "Summe aller im ausgewählten Bereich erfassten Brunnen.",
+            "format": {
+                "typ": "string"
+            },
+            "erforderlich": "nein"
+        },
+        "kpiKontext2": {
+            "label": "KPI-Erklärung: Trinkwasser",
+            "category": "beschreibung",
+            "hilfe": "Erklärtext unter dem zweiten KPI-Wert. Leer = ausgeblendet.",
+            "default": "Öffentliche Trinkwasserbrunnen mit Trinkwasserqualität.",
+            "format": {
+                "typ": "string"
+            },
+            "erforderlich": "nein"
+        },
+        "kpiKontext3": {
+            "label": "KPI-Erklärung: Mineralwasser",
+            "category": "beschreibung",
+            "hilfe": "Erklärtext unter dem dritten KPI-Wert. Leer = ausgeblendet.",
+            "default": "Mineral- und Heilbrunnen im Betrieb.",
+            "format": {
+                "typ": "string"
+            },
+            "erforderlich": "nein"
+        },
+        "kpiKontext4": {
+            "label": "KPI-Erklärung: Sonstige",
+            "category": "beschreibung",
+            "hilfe": "Erklärtext unter dem vierten KPI-Wert. Leer = ausgeblendet.",
+            "default": "Zier- und sonstige Brunnenanlagen.",
+            "format": {
+                "typ": "string"
+            },
+            "erforderlich": "nein"
+        },
+        "datenquelleHinweis": {
+            "label": "Methodik / Datenquelle-Hinweis",
+            "category": "beschreibung",
+            "hilfe": "Herkunft, Erhebungsmethode und Limitierungen (HTML/Markdown). Leer = ausgeblendet.",
+            "default": "Die Standortdaten stammen aus dem WFS-Dienst der Landeshauptstadt Stuttgart (Stuttgarter GeoServer) und umfassen ausschließlich Brunnen, Trinkwasser- und Mineralwasserbrunnen *im Betrieb*.\n\nErhebung und Pflege erfolgen durch die zuständigen städtischen Stellen. Außer Betrieb genommene oder noch nicht erfasste Anlagen sind nicht enthalten; Verfügbarkeit und Aktualität hängen vom Pflegestand der Quelle ab.",
+            "format": {
+                "typ": "markdown"
+            },
+            "erforderlich": "nein"
+        },
+        "datenStand": {
+            "label": "Datenstand",
+            "category": "beschreibung",
+            "hilfe": "Freitext-Hinweis zum Stand der Daten. Leer = ausgeblendet.",
+            "default": "Stand: Direktabruf der WFS-Daten (laufend aktualisiert)",
+            "format": {
+                "typ": "string"
+            },
+            "erforderlich": "nein"
+        },
+        "sprache": {
+            "label": "Sprache der App",
+            "category": "allgemein",
+            "hilfe": "Angabe der App-Sprache.",
+            "default": "de",
+            "format": {
+                "typ": "dropdown",
+                "optionen": [
+                    "de"
+                ]
+            },
+            "erforderlich": "ja"
         }
-      ]
-    },
-    "weiterfuehrendeLinks": {
-      "label": "Weiterführende Links",
-      "category": "beschreibung",
-      "hilfe": "Verwandte Datensätze / Hintergrundquellen (HTML/Markdown). Leer = ausgeblendet.",
-      "default": "- [Datensatz Brunnen (OpenData Stuttgart)](https://opendata.stuttgart.de/dataset/brunnen)\n- [OpenStreetMap-Mitwirkende](https://www.openstreetmap.org/copyright)",
-      "format": {
-        "typ": "markdown"
-      },
-      "erforderlich": "nein"
-    },
-    "kpiKontext1": {
-      "label": "KPI-Erklärung: Alle Brunnen",
-      "category": "beschreibung",
-      "hilfe": "Erklärtext unter dem ersten KPI-Wert. Leer = ausgeblendet.",
-      "default": "Summe aller im ausgewählten Bereich erfassten Brunnen.",
-      "format": {
-        "typ": "string"
-      },
-      "erforderlich": "nein"
-    },
-    "kpiKontext2": {
-      "label": "KPI-Erklärung: Trinkwasser",
-      "category": "beschreibung",
-      "hilfe": "Erklärtext unter dem zweiten KPI-Wert. Leer = ausgeblendet.",
-      "default": "Öffentliche Trinkwasserbrunnen mit Trinkwasserqualität.",
-      "format": {
-        "typ": "string"
-      },
-      "erforderlich": "nein"
-    },
-    "kpiKontext3": {
-      "label": "KPI-Erklärung: Mineralwasser",
-      "category": "beschreibung",
-      "hilfe": "Erklärtext unter dem dritten KPI-Wert. Leer = ausgeblendet.",
-      "default": "Mineral- und Heilbrunnen im Betrieb.",
-      "format": {
-        "typ": "string"
-      },
-      "erforderlich": "nein"
-    },
-    "kpiKontext4": {
-      "label": "KPI-Erklärung: Sonstige",
-      "category": "beschreibung",
-      "hilfe": "Erklärtext unter dem vierten KPI-Wert. Leer = ausgeblendet.",
-      "default": "Zier- und sonstige Brunnenanlagen.",
-      "format": {
-        "typ": "string"
-      },
-      "erforderlich": "nein"
-    },
-    "datenquelleHinweis": {
-      "label": "Methodik / Datenquelle-Hinweis",
-      "category": "beschreibung",
-      "hilfe": "Herkunft, Erhebungsmethode und Limitierungen (HTML/Markdown). Leer = ausgeblendet.",
-      "default": "Die Standortdaten stammen aus dem WFS-Dienst der Landeshauptstadt Stuttgart (Stuttgarter GeoServer) und umfassen ausschließlich Brunnen, Trinkwasser- und Mineralwasserbrunnen *im Betrieb*.\n\nErhebung und Pflege erfolgen durch die zuständigen städtischen Stellen. Außer Betrieb genommene oder noch nicht erfasste Anlagen sind nicht enthalten; Verfügbarkeit und Aktualität hängen vom Pflegestand der Quelle ab.",
-      "format": {
-        "typ": "markdown"
-      },
-      "erforderlich": "nein"
-    },
-    "datenStand": {
-      "label": "Datenstand",
-      "category": "beschreibung",
-      "hilfe": "Freitext-Hinweis zum Stand der Daten. Leer = ausgeblendet.",
-      "default": "Stand: Direktabruf der WFS-Daten (laufend aktualisiert)",
-      "format": {
-        "typ": "string"
-      },
-      "erforderlich": "nein"
-    },
-    "sprache": {
-      "label": "Sprache der App",
-      "category": "allgemein",
-      "hilfe": "Angabe der App-Sprache.",
-      "default": "de",
-      "format": {
-        "typ": "dropdown",
-        "optionen": [
-          "de"
-        ]
-      },
-      "erforderlich": "ja"
     }
-  }
 }
