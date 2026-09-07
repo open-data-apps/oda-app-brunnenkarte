@@ -20,6 +20,7 @@
       "name": "type",
       "title": "Brunnenart",
       "type": "string",
+      "description": "Brunnenart je Slot: brunnen, trinkwasser oder mineralwasser.",
       "constraints": {
         "enum": [
           "brunnen",
