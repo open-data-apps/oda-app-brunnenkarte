@@ -1,7 +1,9 @@
 # Changelog
 
-## 1.27.1 - 2026-09-07
+## 1.27.2 - 2026-09-08
 - **FIX:** Variante-A-Verdrahtung (F-92): Typprüfung (wfs) je Quelle vor dem ersten Fetch (über Fehler-Aggregation); Quellen-Infobox über `renderOdasFehler` (1.27.1 -> 1.27.2).
+
+## 1.27.1 - 2026-09-07
 - **FIX:** Frictionless-Härtung: `type`-Beschreibung ergänzt (Schema beschreibt belegt die normalisierte Form); alle 3 WFS-Slots vermessen (FeatureCollections, identische Properties). JSON-Pfad ist Validator-blind — Mapping-Nachweis im REPORT.
 
 ## 1.27.0 - 2026-08-25
