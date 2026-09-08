@@ -337,8 +337,15 @@ function app(configdata = {}, enclosingHtmlDivElement) {
   brunnenInstances.set(enclosingHtmlDivElement, state);
 
   if (!parseDataSources(configdata.apiurls).length) {
-    enclosingHtmlDivElement.innerHTML =
-      '<div class="alert alert-info" role="alert">Es ist keine Datenquelle konfiguriert.</div>';
+    renderOdasFehler(
+      enclosingHtmlDivElement,
+      new Error("Keine Datenquelle konfiguriert."),
+      {
+        label: "Brunnen-Datenquellen (WFS)",
+        typLabel: "Kartendienst (WFS)",
+        erwarteterTyp: "wfs",
+      },
+    );
     return null;
   }
 
@@ -600,6 +607,12 @@ async function fetchAllSources(configdata = {}) {
   const results = await Promise.all(
     sources.map(async (source) => {
       try {
+        // Variante A (F-92): Typprüfung vor dem ersten Fetch; Verstoß läuft
+        // über die bestehende Fehler-Aggregation je Quelle.
+        const bkTypWarn = validateUrlTypErwartung(source.url, "wfs");
+        if (bkTypWarn) {
+          throw new Error(bkTypWarn);
+        }
         // Daten laden: direkt oder ueber den ODAS-Proxy (proxyAktiv)
         const text = await fetchOdasResource(source.url, configdata);
         const parsed = parsePayload(text, source);
