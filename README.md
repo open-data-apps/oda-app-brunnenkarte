@@ -13,6 +13,7 @@ Die App entspricht dem ODAS-V1-Modell auf Basis des `oda-generic` Templates: Die
 - Schlanke HTML-Verteilung nach Brunnenart ohne zusaetzliche Chart-Bibliothek
 - CSV-Export der aktuell gefilterten Datensaetze
 - Robuste Fehleranzeige, wenn einzelne Quellen nicht geladen werden koennen
+- Laufende Quellenabrufe brechen beim Seitenwechsel ab; ein fehlgeschlagener Bibliotheks-Ladevorgang blockiert weitere Versuche (z. B. „Aktualisieren“) nicht mehr
 
 ## Fuer wen ist diese App?
 

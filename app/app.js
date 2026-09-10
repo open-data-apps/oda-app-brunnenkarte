@@ -94,13 +94,15 @@ async function fetchViaOdasProxy(targetUrl, options = {}) {
   return proxyData.content;
 }
 
-async function fetchOdasResource(targetUrl, configdata = {}) {
+async function fetchOdasResource(targetUrl, configdata = {}, options = {}) {
   if (isOdasProxyEnabled(configdata)) {
-    return fetchViaOdasProxy(targetUrl);
+    return fetchViaOdasProxy(targetUrl, options);
   }
 
   try {
-    const response = await fetch(targetUrl);
+    const response = await fetch(targetUrl, {
+      signal: options && options.signal ? options.signal : undefined,
+    });
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
@@ -112,8 +114,8 @@ async function fetchOdasResource(targetUrl, configdata = {}) {
   }
 }
 
-async function fetchOdasJson(targetUrl, configdata = {}) {
-  const rawContent = await fetchOdasResource(targetUrl, configdata);
+async function fetchOdasJson(targetUrl, configdata = {}, options = {}) {
+  const rawContent = await fetchOdasResource(targetUrl, configdata, options);
   try {
     return JSON.parse(rawContent);
   } catch (_error) {
@@ -272,15 +274,6 @@ function renderOdasFehler(container, error, kontext = {}) {
   container.innerHTML = `<div class="alert ${alertClass}" role="alert"><strong>${escapeHtml(titel)}</strong><p class="mb-1">${escapeHtml(info.hinweis)}</p>${urlZeile}<details class="small"><summary>Details</summary><code>${escapeHtml(info.detail || String(error))}</code></details></div>`;
 }
 
-function isLeerErgebnis(json) {
-  if (!json) return true;
-  if (Array.isArray(json) && json.length === 0) return true;
-  if (Array.isArray(json.records) && json.records.length === 0) return true;
-  if (Array.isArray(json.results) && json.results.length === 0) return true;
-  if (json.result && Array.isArray(json.result.records) && json.result.records.length === 0) return true;
-  return false;
-}
-
 
 /*
  * Template-Hook (oda-generic 1.4.0). Die Base ruft ihn vor dem Rendern der neuen
@@ -292,6 +285,9 @@ function isLeerErgebnis(json) {
 function onPageLeave(page) {
   brunnenInstances.forEach((state, container) => {
     state.disposed = true;
+    // BR-B2: laufende Abrufe abbrechen statt sie nach dem Seitenwechsel
+    // weiterlaufen zu lassen (der Lade-Token schuetzt nur die Oberflaeche).
+    if (state.controller) state.controller.abort();
     if (state.map) {
       try {
         state.map.remove();
@@ -332,8 +328,23 @@ function app(configdata = {}, enclosingHtmlDivElement) {
     sortDirection: "asc",
     disposed: false,
     loadToken: 0,
+    controller: new AbortController(), // BR-B2: laufende WFS-Abrufe sind abbrechbar
   };
 
+  // BR-B1: Vorgaenger-Instanz desselben Containers zuerst abraeumen. Ohne das
+  // blieb bei Same-Page-Re-Render deren Leaflet-Karte samt Cluster-Layer und
+  // Markern am Leben (disposed wurde nie gesetzt).
+  const brVorheriger = brunnenInstances.get(enclosingHtmlDivElement);
+  if (brVorheriger) {
+    try {
+      brVorheriger.controller.abort();
+      if (brVorheriger.map) {
+        brVorheriger.map.remove();
+        brVorheriger.map = null;
+      }
+      brVorheriger.disposed = true;
+    } catch (_e) {}
+  }
   brunnenInstances.set(enclosingHtmlDivElement, state);
 
   if (!parseDataSources(configdata.apiurls).length) {
@@ -378,7 +389,7 @@ async function initializeApp(state) {
       });
     });
 
-  const dataTask = fetchAllSources(state.config);
+  const dataTask = fetchAllSources(state.config, state.controller.signal);
   const [dataResult] = await Promise.all([dataTask, leafletTask]);
 
   if (state.disposed || state.loadToken !== token) return;
@@ -602,7 +613,7 @@ function bindUiEvents(container, state) {
   });
 }
 
-async function fetchAllSources(configdata = {}) {
+async function fetchAllSources(configdata = {}, signal) {
   const sources = parseDataSources(configdata.apiurls);
   const results = await Promise.all(
     sources.map(async (source) => {
@@ -614,7 +625,7 @@ async function fetchAllSources(configdata = {}) {
           throw new Error(bkTypWarn);
         }
         // Daten laden: direkt oder ueber den ODAS-Proxy (proxyAktiv)
-        const text = await fetchOdasResource(source.url, configdata);
+        const text = await fetchOdasResource(source.url, configdata, { signal });
         const parsed = parsePayload(text, source);
         const features = extractFeatures(parsed);
         let skipped = 0;
@@ -1467,30 +1478,66 @@ function loadLeaflet() {
   );
 }
 
+// BR-B3: Ein bereits gescheiterter Ladeversuch darf keinen neuen, ewig
+// offenen Warteversuch erzeugen. Deshalb merkt sich jedes Element seinen
+// Zustand; ein toter Tag wird beim naechsten Versuch ersetzt.
+function markiereGeladen(el) {
+  if (el && el.dataset) el.dataset.geladen = "ja";
+}
+
+function istGeladen(el) {
+  return !!(el && el.dataset && el.dataset.geladen === "ja");
+}
+
 function loadStylesheetOnce(id, href) {
-  if (document.getElementById(id)) return Promise.resolve();
+  const vorhanden = document.getElementById(id);
+  if (vorhanden) {
+    if (istGeladen(vorhanden)) return Promise.resolve();
+    // Fehlgeschlagener Versuch: Tag entfernen und neu laden, statt zu warten.
+    if (vorhanden.dataset && vorhanden.dataset.fehlgeschlagen === "ja") {
+      vorhanden.parentNode && vorhanden.parentNode.removeChild(vorhanden);
+    } else {
+      return new Promise((resolve, reject) => {
+        vorhanden.addEventListener("load", () => { markiereGeladen(vorhanden); resolve(); }, { once: true });
+        vorhanden.addEventListener("error", () => reject(new Error(`Stylesheet konnte nicht geladen werden: ${href}`)), { once: true });
+      });
+    }
+  }
   return new Promise((resolve, reject) => {
     const link = document.createElement("link");
     link.id = id;
     link.rel = "stylesheet";
     link.href = href;
-    link.onload = resolve;
-    link.onerror = () =>
+    link.onload = () => {
+      markiereGeladen(link);
+      resolve();
+    };
+    link.onerror = () => {
+      if (link.dataset) link.dataset.fehlgeschlagen = "ja";
       reject(new Error(`Stylesheet konnte nicht geladen werden: ${href}`));
+    };
     document.head.appendChild(link);
   });
 }
 
 function loadScriptOnce(id, src, readyCheck) {
   if (readyCheck && readyCheck()) return Promise.resolve();
-  if (document.getElementById(id)) {
-    return new Promise((resolve, reject) => {
-      const existing = document.getElementById(id);
-      existing.addEventListener("load", () => resolve());
-      existing.addEventListener("error", () =>
-        reject(new Error(`Skript konnte nicht geladen werden: ${src}`)),
-      );
-    });
+  const vorhanden = document.getElementById(id);
+  if (vorhanden) {
+    if (istGeladen(vorhanden)) return Promise.resolve();
+    if (vorhanden.dataset && vorhanden.dataset.fehlgeschlagen === "ja") {
+      // BR-B3: Ein gescheiterter Tag feuert nie wieder Events — ohne Entfernen
+      // haette jeder weitere Versuch (z.B. "Aktualisieren") ewig gehangen.
+      vorhanden.parentNode && vorhanden.parentNode.removeChild(vorhanden);
+    } else {
+      return new Promise((resolve, reject) => {
+        vorhanden.addEventListener("load", () => { markiereGeladen(vorhanden); resolve(); }, { once: true });
+        vorhanden.addEventListener("error", () => {
+          if (vorhanden.dataset) vorhanden.dataset.fehlgeschlagen = "ja";
+          reject(new Error(`Skript konnte nicht geladen werden: ${src}`));
+        }, { once: true });
+      });
+    }
   }
 
   return new Promise((resolve, reject) => {
@@ -1498,9 +1545,14 @@ function loadScriptOnce(id, src, readyCheck) {
     script.id = id;
     script.src = src;
     script.async = true;
-    script.onload = () => resolve();
-    script.onerror = () =>
+    script.onload = () => {
+      markiereGeladen(script);
+      resolve();
+    };
+    script.onerror = () => {
+      if (script.dataset) script.dataset.fehlgeschlagen = "ja";
       reject(new Error(`Skript konnte nicht geladen werden: ${src}`));
+    };
     document.head.appendChild(script);
   });
 }
@@ -1630,7 +1682,7 @@ function getRoot(state) {
 }
 
 function addToHead() {
-  return;
+  return ``;
 }
 
 if (

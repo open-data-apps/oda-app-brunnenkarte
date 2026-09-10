@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.27.3 - 2026-09-10
+- **FIX (BR-B1):** `brunnenInstances.set(...)` ohne Vorgänger-Cleanup — bei Same-Page-Re-Render blieb die alte Leaflet-Karte samt Cluster-Layer und Markern am Leben (`disposed` wurde nie gesetzt). Jetzt wird die Vorgänger-Instanz zuerst abgeräumt.
+- **FIX (BR-B2):** WFS-Abrufe sind per `AbortController` abbrechbar und werden in `onPageLeave` abgebrochen; `fetchOdasResource`/`fetchOdasJson` reichen `signal` durch.
+- **FIX (BR-B3):** Ein fehlgeschlagener Bibliotheks-Ladevorgang hinterließ einen toten Script-Tag, an dem sich beim nächsten Versuch Listener anmeldeten, die nie wieder feuern konnten — „Aktualisieren" hing dadurch dauerhaft in der Busy-Anzeige. Ladezustand wird jetzt am Element markiert (`dataset.geladen`/`dataset.fehlgeschlagen`), ein toter Tag wird ersetzt.
+- **TECH (BR-B4):** `isLeerErgebnis` entfernt; `addToHead` gibt `""` statt `undefined` zurück.
+
 ## 1.27.2 - 2026-09-08
 - **FIX:** Variante-A-Verdrahtung (F-92): Typprüfung (wfs) je Quelle vor dem ersten Fetch (über Fehler-Aggregation); Quellen-Infobox über `renderOdasFehler` (1.27.1 -> 1.27.2).
 
