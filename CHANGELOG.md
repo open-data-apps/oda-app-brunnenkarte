@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.27.4 - 2026-10-02
+- ENH: Verwendete ODAS-Dienste in `odas-services` deklariert.
+
 ## 1.27.3 - 2026-09-10
 - **FIX (BR-B1):** `brunnenInstances.set(...)` ohne Vorgänger-Cleanup — bei Same-Page-Re-Render blieb die alte Leaflet-Karte samt Cluster-Layer und Markern am Leben (`disposed` wurde nie gesetzt). Jetzt wird die Vorgänger-Instanz zuerst abgeräumt.
 - **FIX (BR-B2):** WFS-Abrufe sind per `AbortController` abbrechbar und werden in `onPageLeave` abgebrochen; `fetchOdasResource`/`fetchOdasJson` reichen `signal` durch.
