@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.27.5 - 2026-10-08
+- FIX: F-112: Unbekannte Antwortstrukturen als Formatfehler statt als leere Daten anzeigen; bekannte leere Listen bleiben gültig.
+- FIX: F-138: Leere/fehlende Property-Koordinaten nicht nach 0/0 konvertieren; Wertebereiche prüfen. Echte explizite 0 bleibt eine gültige Koordinate.
+
 ## 1.27.4 - 2026-10-02
 - ENH: Verwendete ODAS-Dienste in `odas-services` deklariert.
 

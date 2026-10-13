@@ -725,14 +725,15 @@ function parsePayload(text, source) {
 }
 
 function extractFeatures(payload) {
-  if (!payload) return [];
+  if (!payload || payload.success === false) throw new Error("Unbekanntes Antwortformat: GeoJSON-Features oder Datensatzliste erwartet.");
   if (Array.isArray(payload)) return payload;
   if (Array.isArray(payload.features)) return payload.features;
   if (payload.result && Array.isArray(payload.result.records))
     return payload.result.records;
   if (Array.isArray(payload.records)) return payload.records;
   if (Array.isArray(payload.data)) return payload.data;
-  return [];
+  // F-112: Nur explizite leere Listen zählen als gültige Antwort.
+  throw new Error("Unbekanntes Antwortformat: GeoJSON-Features oder Datensatzliste erwartet.");
 }
 
 function normalizeRecord(rawRecord, source, index) {
@@ -821,17 +822,11 @@ function extractCoordinates(geometry, properties) {
     }
   }
 
-  const lat = Number(
-    firstText(properties, ["lat", "latitude", "LAT", "Y", "y"]),
-  );
-  const lng = Number(
-    firstText(properties, ["lng", "lon", "longitude", "LON", "X", "x"]),
-  );
-  if (Number.isFinite(lat) && Number.isFinite(lng)) {
-    return { lat, lng };
-  }
-
-  return null;
+  // F-138: Leere Felder nicht per Number("") nach 0/0 versetzen.
+  const lat = firstText(properties, ["lat", "latitude", "LAT", "Y", "y"]);
+  const lng = firstText(properties, ["lng", "lon", "longitude", "LON", "X", "x"]);
+  if (!lat || !lng) return null;
+  return normalizeCoordinatePair([Number(lng), Number(lat)]);
 }
 
 function findCoordinatePair(value) {
