@@ -428,3 +428,7 @@
     flex-direction: column;
   }
 }
+
+.brunnen-no-district .brunnen-col-district {
+  display: none !important;
+}

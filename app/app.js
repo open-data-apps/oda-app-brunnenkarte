@@ -326,6 +326,7 @@ function app(configdata = {}, enclosingHtmlDivElement) {
     markerLayer: null,
     markersByKey: new Map(),
     allRecords: [],
+    hatBezirk: false,
     filteredRecords: [],
     loadErrors: [],
     skippedRecords: 0,
@@ -463,7 +464,7 @@ function renderLayout(rootId, configdata = {}, uid) {
               <option value="mineralwasser">Mineralwasser</option>
             </select>
           </div>
-          <div class="col-12 col-sm-6 col-lg-2">
+          <div class="col-12 col-sm-6 col-lg-2 brunnen-col-district">
             <label class="form-label" for="${rootId}-district">Bezirk / Stadtteil</label>
             <select class="form-select" id="${rootId}-district">
               <option value="all">Alle</option>
@@ -482,7 +483,7 @@ function renderLayout(rootId, configdata = {}, uid) {
                 <label class="form-check-label" for="${rootId}-visible">Nur Kartenausschnitt</label>
               </div>
               <button class="btn btn-outline-secondary btn-sm" type="button" data-action="reset">
-                Zuruecksetzen
+                Zurücksetzen
               </button>
               <button class="btn btn-outline-secondary btn-sm" type="button" data-action="export">
                 CSV
@@ -521,7 +522,7 @@ function renderLayout(rootId, configdata = {}, uid) {
                 <th scope="col"><button type="button" class="brunnen-sort" data-sort="name">Name</button></th>
                 <th scope="col"><button type="button" class="brunnen-sort" data-sort="type">Typ</button></th>
                 <th scope="col"><button type="button" class="brunnen-sort" data-sort="address">Lage</button></th>
-                <th scope="col" class="d-none d-md-table-cell"><button type="button" class="brunnen-sort" data-sort="district">Bezirk</button></th>
+                <th scope="col" class="d-none d-md-table-cell brunnen-col-district"><button type="button" class="brunnen-sort" data-sort="district">Bezirk</button></th>
                 <th scope="col" class="text-end">Aktion</th>
               </tr>
             </thead>
@@ -1034,6 +1035,8 @@ function resetFilters(state) {
 function populateFilterOptions(state) {
   const root = getRoot(state);
   const districtSelect = root.querySelector(`#${state.rootId}-district`);
+  state.hatBezirk = state.allRecords.some((record) => record.district);
+  root.classList.toggle("brunnen-no-district", !state.hatBezirk);
   const sourceSelect = root.querySelector(`#${state.rootId}-source`);
 
   setSelectOptions(
@@ -1182,7 +1185,10 @@ function renderMap(state, options = {}) {
     const marker = window.L.marker([record.lat, record.lng], {
       icon: createMarkerIcon(record.type),
       title: record.name,
-    }).bindPopup(renderPopup(record));
+    }).bindPopup(renderPopup(record, state.hatBezirk), {
+      autoPanPaddingTopLeft: [10, 90],
+      autoPanPaddingBottomRight: [10, 10],
+    });
 
     marker.on("click", () => highlightTableRow(state, record.dedupeKey));
     state.markerLayer.addLayer(marker);
@@ -1215,7 +1221,7 @@ function createMarkerIcon(type) {
   });
 }
 
-function renderPopup(record) {
+function renderPopup(record, hatBezirk) {
   const mapsUrl = `https://www.openstreetmap.org/?mlat=${encodeURIComponent(record.lat)}&mlon=${encodeURIComponent(record.lng)}#map=18/${encodeURIComponent(record.lat)}/${encodeURIComponent(record.lng)}`;
   return `
     <div class="brunnen-popup">
@@ -1223,11 +1229,11 @@ function renderPopup(record) {
       <dl class="mb-2">
         <dt>Typ</dt><dd>${escapeHtml(record.typeLabel)}</dd>
         <dt>Lage</dt><dd>${escapeHtml(record.address || "Keine Angabe")}</dd>
-        <dt>Bezirk</dt><dd>${escapeHtml(record.district || "Keine Angabe")}</dd>
+        ${hatBezirk ? `<dt>Bezirk</dt><dd>${escapeHtml(record.district || "Keine Angabe")}</dd>` : ""}
         <dt>Status</dt><dd>${escapeHtml(record.status || "Keine Angabe")}</dd>
         <dt>Quelle</dt><dd>${escapeHtml((record.sourceLabels || [record.sourceLabel]).join(", "))}</dd>
       </dl>
-      <a href="${mapsUrl}" target="_blank" rel="noopener">In OpenStreetMap oeffnen</a>
+      <a href="${mapsUrl}" target="_blank" rel="noopener">In OpenStreetMap öffnen</a>
     </div>
   `;
 }
@@ -1269,8 +1275,8 @@ function renderTable(state) {
       ? pageRecords.map(renderTableRow).join("")
       : `
       <tr>
-        <td colspan="5">
-          <div class="brunnen-empty">Keine Brunnen fuer diese Filterkombination gefunden.</div>
+        <td colspan="${state.hatBezirk ? 5 : 4}">
+          <div class="brunnen-empty">Keine Brunnen für diese Filterkombination gefunden.</div>
         </td>
       </tr>
     `;
@@ -1287,7 +1293,7 @@ function renderTableRow(record) {
       </td>
       <td><span class="brunnen-type-pill brunnen-type-${record.type}">${escapeHtml(record.typeLabel)}</span></td>
       <td>${escapeHtml(record.address || "Keine Angabe")}</td>
-      <td class="d-none d-md-table-cell">${escapeHtml(record.district || "Keine Angabe")}</td>
+      <td class="d-none d-md-table-cell brunnen-col-district">${escapeHtml(record.district || "Keine Angabe")}</td>
       <td class="text-end">
         <button class="btn btn-sm btn-outline-primary" type="button" data-action="focus" data-key="${escapeAttribute(record.dedupeKey)}">
           Karte
@@ -1308,7 +1314,7 @@ function renderPagination(state, maxPage) {
 
   const pages = createPageWindow(state.currentPage, maxPage);
   pagination.innerHTML = `
-    <button class="btn btn-sm btn-outline-secondary" type="button" data-page="${Math.max(1, state.currentPage - 1)}" ${state.currentPage === 1 ? "disabled" : ""}>Zurueck</button>
+    <button class="btn btn-sm btn-outline-secondary" type="button" data-page="${Math.max(1, state.currentPage - 1)}" ${state.currentPage === 1 ? "disabled" : ""}>Zurück</button>
     ${pages
       .map(
         (page) => `
@@ -1341,7 +1347,11 @@ function focusRecord(state, key) {
     [record.lat, record.lng],
     Math.max(state.map.getZoom(), 16),
   );
-  marker.openPopup();
+  if (state.markerLayer.zoomToShowLayer) {
+    state.markerLayer.zoomToShowLayer(marker, () => marker.openPopup());
+  } else {
+    marker.openPopup();
+  }
   highlightTableRow(state, key);
 }
 
