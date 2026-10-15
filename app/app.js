@@ -1343,14 +1343,19 @@ function focusRecord(state, key) {
   const record = state.filteredRecords.find((item) => item.dedupeKey === key);
   if (!marker || !record || !state.map) return;
 
-  state.map.setView(
-    [record.lat, record.lng],
-    Math.max(state.map.getZoom(), 16),
-  );
-  if (state.markerLayer.zoomToShowLayer) {
-    state.markerLayer.zoomToShowLayer(marker, () => marker.openPopup());
-  } else {
+  const zeigen = () => {
+    state.map.setView(
+      [record.lat, record.lng],
+      Math.max(state.map.getZoom(), 16),
+      { animate: false },
+    );
     marker.openPopup();
+  };
+  // Marker kann in einem Cluster stecken: erst aufdecken, dann zentrieren und Popup öffnen.
+  if (state.markerLayer.zoomToShowLayer) {
+    state.markerLayer.zoomToShowLayer(marker, zeigen);
+  } else {
+    zeigen();
   }
   highlightTableRow(state, key);
 }
