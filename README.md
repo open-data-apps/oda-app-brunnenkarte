@@ -107,7 +107,7 @@ make zip
 | `app/app.css` | App-spezifisches Styling |
 | `app-package.json` | ODAS-Metadaten und Instanz-Konfiguration |
 | `odas-config/config.json` | Lokale Testkonfiguration |
-| `assets/schema.json` | Normalisiertes Datenmodell |
+| `assets/schema.json` | Schema der WFS-Brunnen-Layer (Rohdaten) |
 | `assets/odas-app-icon.svg` | ODAS-App-Icon |
 
 ## Betriebsarten

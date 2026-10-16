@@ -1,79 +1,65 @@
 {
   "$schema": "https://frictionlessdata.io/schemas/table-schema.json",
   "name": "brunnenkarte",
-  "title": "Normalisiertes Datenmodell der Brunnenkarte",
-  "description": "Interne Felder fuer Brunnen, Trinkwasserbrunnen und Mineralwasserbrunnen in der ODAS-App.",
-  "fields": [
-    {
-      "name": "id",
-      "title": "ID",
-      "type": "string",
-      "description": "Eindeutige Kennung aus dem Quellsystem oder der App-Normalisierung."
-    },
-    {
-      "name": "name",
-      "title": "Name",
-      "type": "string",
-      "description": "Name oder Bezeichnung des Brunnens."
-    },
-    {
-      "name": "type",
-      "title": "Brunnenart",
-      "type": "string",
-      "description": "Brunnenart je Slot: brunnen, trinkwasser oder mineralwasser.",
-      "constraints": {
-        "enum": [
-          "brunnen",
-          "trinkwasser",
-          "mineralwasser"
-        ]
-      }
-    },
-    {
-      "name": "district",
-      "title": "Bezirk oder Stadtteil",
-      "type": "string",
-      "description": "Raeumliche Einordnung, falls im Quelldatensatz vorhanden."
-    },
-    {
-      "name": "address",
-      "title": "Lage",
-      "type": "string",
-      "description": "Adresse, Lagebeschreibung oder Standortbezeichnung."
-    },
-    {
-      "name": "lat",
-      "title": "Latitude",
-      "type": "number",
-      "description": "Breitengrad in WGS84."
-    },
-    {
-      "name": "lng",
-      "title": "Longitude",
-      "type": "number",
-      "description": "Laengengrad in WGS84."
-    },
-    {
-      "name": "status",
-      "title": "Status",
-      "type": "string",
-      "description": "Betriebsstatus aus der Datenquelle."
-    },
-    {
-      "name": "operator",
-      "title": "Unterhaltung",
-      "type": "string",
-      "description": "Zustaendige Stelle oder Betreiberangabe aus der Datenquelle."
-    },
-    {
-      "name": "sourceLabel",
-      "title": "Quelle",
-      "type": "string",
-      "description": "Label der geladenen Datenquelle."
-    }
-  ],
-  "primaryKey": "id",
+  "title": "Brunnen-Layer der Brunnenkarte (Rohdaten)",
+  "description": "Eigenschaften der drei Brunnen-Layer aus dem WFS der Stadt Stuttgart (GeoJSON, alle drei Slots gleich aufgebaut). Die App normalisiert diese Felder intern.",
   "missingValues": [
     ""
+  ],
+  "fields": [
+    {
+      "name": "ANLAGENART",
+      "title": "Anlagenart",
+      "type": "string",
+      "description": "Art der Anlage, z. B. Schwengelpumpe oder Trinkwasserbrunnen."
+    },
+    {
+      "name": "BEZEICHNUNG_STANDORT",
+      "title": "Standort",
+      "type": "string",
+      "description": "Standortbezeichnung des Brunnens."
+    },
+    {
+      "name": "NAME",
+      "title": "Name",
+      "type": "string",
+      "description": "Name des Brunnens, kann leer sein."
+    },
+    {
+      "name": "STATUS",
+      "title": "Status",
+      "type": "string",
+      "description": "Betriebsstatus, z. B. in Betrieb."
+    },
+    {
+      "name": "TRINKWASSER",
+      "title": "Trinkwasser",
+      "type": "string",
+      "description": "Wasserqualitaet, z. B. kein Trinkwasser oder Mineralwasser."
+    },
+    {
+      "name": "UNTERHALTUNG",
+      "title": "Unterhaltung",
+      "type": "string",
+      "description": "Zustaendige Stelle."
+    },
+    {
+      "name": "geometry.type",
+      "title": "Geometrietyp",
+      "type": "string",
+      "constraints": {
+        "required": true
+      },
+      "description": "GeoJSON-Geometrietyp; die Layer liefern Punkte."
+    },
+    {
+      "name": "geometry.coordinates",
+      "title": "Koordinaten",
+      "type": "array",
+      "constraints": {
+        "required": true
+      },
+      "description": "Laenge und Breite in WGS84 (srsName EPSG:4326)."
+    }
   ]
 }
